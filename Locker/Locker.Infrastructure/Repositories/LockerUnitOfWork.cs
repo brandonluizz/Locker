@@ -34,12 +34,12 @@ namespace Locker.Infrastructure.Repositories
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            this.context.SaveChanges();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.context.Dispose();
         }
     }
 }
