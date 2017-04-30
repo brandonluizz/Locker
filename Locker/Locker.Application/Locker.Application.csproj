@@ -40,9 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITeste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Teste.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Locker.DomainModel\Locker.DomainModel.csproj">
