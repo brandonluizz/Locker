@@ -245,6 +245,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -261,8 +262,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
@@ -284,6 +283,10 @@
     <ProjectReference Include="..\Locker.Application\Locker.Application.csproj">
       <Project>{75DE82CF-A476-43C8-8F5C-8B2310FB43AE}</Project>
       <Name>Locker.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Locker.DomainModel\Locker.DomainModel.csproj">
+      <Project>{79FF3A24-154B-4AEA-8FF0-A258F5C70ACB}</Project>
+      <Name>Locker.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Locker.Infrastructure\Locker.Infrastructure.csproj">
       <Project>{11E00A7C-7720-4C2E-9EF5-F0954518B7EC}</Project>
