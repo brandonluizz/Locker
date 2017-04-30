@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITeste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Teste.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Locker.DomainModel\Locker.DomainModel.csproj">
+      <Project>{79FF3A24-154B-4AEA-8FF0-A258F5C70ACB}</Project>
+      <Name>Locker.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Locker.Infrastructure\Locker.Infrastructure.csproj">
+      <Project>{11E00A7C-7720-4C2E-9EF5-F0954518B7EC}</Project>
+      <Name>Locker.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Locker.DomainModel
 {
+    [Table("UserActivity")]
     public class UserActivity
     {
+        [Key]
         public int UserActivityId { get; set; }
 
+        [ForeignKey("Locker")]
         public int LockerId { get; set; }
+
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
         public DateTime InitialRentalDate { get; set; }
 

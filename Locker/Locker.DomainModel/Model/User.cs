@@ -1,13 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Locker.DomainModel
 {
+    [Table("User")]
     public class User
     {
+        public User(string userName, DateTime birthDate, DateTime expirationDate)
+        {
+            this.UserName = userName;
+            this.BirthDate = birthDate;
+            this.ExpirationDate = expirationDate;
+        }
+
+        [Key]
         public int UserId { get; set; }
 
         public string UserName { get; set; }

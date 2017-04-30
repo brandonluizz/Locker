@@ -1,7 +1,12 @@
-﻿namespace Locker.DomainModel
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Locker.DomainModel
 {
+    [Table("LockerBlock")]
     public class LockerBlock
     {
+        [Key]
         public int LockerBlockId { get; set; }
 
         public int TotalNumberOfVerticalLockers { get; set; }
