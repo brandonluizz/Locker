@@ -12,6 +12,7 @@ namespace Locker.DomainModel
             this.UserName = userName;
             this.BirthDate = birthDate;
             this.ExpirationDate = expirationDate;
+            this.RegistrationDate = DateTime.Now;
         }
 
         [Key]
