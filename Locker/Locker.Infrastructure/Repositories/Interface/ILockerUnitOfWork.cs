@@ -8,6 +8,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ILockerUnitOfWork
     {
+        ICustomerRepository CustomerRepository { get; }
+
         IUserRepository UserRepository { get; }
 
         void Dispose();

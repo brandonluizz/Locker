@@ -13,6 +13,8 @@ namespace Locker.Presentation.App_Start
     using Locker.Infrastructure.Repositories;
     using Locker.Infrastructure.Repositories.Interface;
     using Locker.Infrastructure.EntityFramework;
+    using Locker.Application.Interfaces;
+    using Locker.Application;
 
     public static class NinjectWebCommon 
     {
@@ -66,6 +68,7 @@ namespace Locker.Presentation.App_Start
         {
             kernel.Bind<LockerContext>().To<LockerContext>();
             kernel.Bind<ILockerUnitOfWork>().To<LockerUnitOfWork>();
+            kernel.Bind<IUserAccessManagement>().To<UserAccessManagement>();
         }        
     }
 }

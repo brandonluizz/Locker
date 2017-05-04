@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Locker.DomainModel
 {
-    [Table("UserActivity")]
-    public class UserActivity
+    [Table("CustomerActivity")]
+    public class CustomerActivity
     {
         [Key]
-        public int UserActivityId { get; set; }
+        public int CustomerActivityId { get; set; }
 
         [ForeignKey("Locker")]
         public int LockerId { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; }
 
         public DateTime InitialRentalDate { get; set; }
 
@@ -22,6 +22,6 @@ namespace Locker.DomainModel
 
         public virtual Locker Locker { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }
