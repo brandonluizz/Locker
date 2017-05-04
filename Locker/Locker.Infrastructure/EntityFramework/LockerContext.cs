@@ -1,4 +1,5 @@
 ﻿using Locker.DomainModel;
+using Locker.DomainModel.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,9 +15,9 @@ namespace Locker.Infrastructure.EntityFramework
         {
         }
 
-        public DbSet<User> User { get; set; }
+        public DbSet<Customer> Customer { get; set; }
 
-        public DbSet<UserActivity> UserActivity { get; set; }
+        public DbSet<CustomerActivity> CustomerActivity { get; set; }
 
         public DbSet<Sector> Sector { get; set; }
 
@@ -25,5 +26,7 @@ namespace Locker.Infrastructure.EntityFramework
         public DbSet<DomainModel.Locker> Locker { get; set; }
 
         public DbSet<LockerBlock> LockerBlock { get; set; }
+
+        public DbSet<User> User { get; set; }
     }
 }

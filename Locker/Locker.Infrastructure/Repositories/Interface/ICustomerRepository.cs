@@ -1,5 +1,4 @@
-﻿using Locker.DomainModel.DTO;
-using Locker.DomainModel.Model;
+﻿using Locker.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Locker.Infrastructure.Repositories.Interface
 {
-    public interface IUserRepository
+    public interface ICustomerRepository
     {
-        User GetUserByLoginAndPassword(UserAccess userAccess);
+        void Add(Customer customer);
     }
 }

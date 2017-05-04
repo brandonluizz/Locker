@@ -17,13 +17,28 @@ namespace Locker.Infrastructure.Repositories
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        private CustomerRepository customerRepository;
+
+        public ICustomerRepository CustomerRepository
+        {
+            get
+            {
+                if (this.customerRepository == null)
+                {
+                    this.customerRepository = new CustomerRepository(this.context.Customer);
+                }
+
+                return this.customerRepository;
+            }
+        }
+
         private UserRepository userRepository;
 
         public IUserRepository UserRepository
         {
             get
             {
-                if (this.userRepository == null)
+                if (userRepository == null)
                 {
                     this.userRepository = new UserRepository(this.context.User);
                 }
@@ -34,12 +49,12 @@ namespace Locker.Infrastructure.Repositories
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            this.context.SaveChanges();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.context.Dispose();
         }
     }
 }

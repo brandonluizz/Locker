@@ -1,40 +1,48 @@
-﻿using Locker.Application;
+﻿using Locker.Application.Interfaces;
+using Locker.DomainModel.DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Locker.DomainModel.Model;
 
 namespace Locker.Presentation.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private ITeste teste;
+        private readonly IUserAccessManagement userAccessManagement;
 
-        public HomeController(ITeste teste)
+        public HomeController(IUserAccessManagement userAccessManagement)
         {
-            this.teste = teste ?? throw new ArgumentNullException(nameof(teste));
+            this.userAccessManagement = userAccessManagement ?? throw new ArgumentNullException(nameof(userAccessManagement));
         }
 
         public ActionResult Index()
         {
-            teste.AddNewUser();
-
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public JsonResult DoLogin(UserAccess userAccess)
         {
-            ViewBag.Message = "Your application description page.";
+            var response = this.userAccessManagement.DoLogin(userAccess);
 
-            return View();
+            if (response.Success)
+            {
+                var userCookie = this.userAccessManagement.CreateUserCookie(response.User);
+
+                if (Request.Cookies[this.userAccessManagement.GetLoggedUserCookieKey()] != null) { Response.Cookies.Set(userCookie); }
+                else { Response.Cookies.Add(userCookie); }
+
+                this.LoggedUser = response.User;
+
+                this.SetViewBagWithLoggedUser(response.User);
+            }
+            
+            return Json(response.Success);
         }
 
-        public ActionResult Contact()
+        private void SetViewBagWithLoggedUser(User user)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.LoggedUser = user;
         }
     }
 }

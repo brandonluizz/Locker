@@ -1,11 +1,12 @@
-﻿using Locker.DomainModel;
-using Locker.Infrastructure.Repositories.Interface;
+﻿using Locker.Infrastructure.Repositories.Interface;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Locker.DomainModel.Model;
+using System.Data.Entity;
+using Locker.DomainModel.DTO;
 
 namespace Locker.Infrastructure.Repositories
 {
@@ -15,14 +16,15 @@ namespace Locker.Infrastructure.Repositories
 
         public UserRepository(IDbSet<User> dbSet)
         {
-            this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
+            this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet)); ;
         }
 
-        public void Add(User user)
+        public User GetUserByLoginAndPassword(UserAccess userAccess)
         {
-            if (user == null) { throw new ArgumentNullException(nameof(user)); }
+            if (userAccess == null) { throw new ArgumentNullException(nameof(userAccess)); }
 
-            this.dbSet.Add(user);
+            return this.dbSet.FirstOrDefault(u => u.Login == userAccess.Login
+            && u.Password == userAccess.Password);
         }
     }
 }
