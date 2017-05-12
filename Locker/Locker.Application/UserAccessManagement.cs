@@ -25,7 +25,7 @@ namespace Locker.Application
         {
             try
             {
-                var user = this.unitOfWork.UserRepository.GetUserByLoginAndPassword(userAccess);
+                var user = this.unitOfWork.UserRepository.GetUserByDataAccess(userAccess);
 
                 if (user == null) { return new UserAccessResponse(false); }
 

@@ -38,12 +38,87 @@ namespace Locker.Infrastructure.Repositories
         {
             get
             {
-                if (userRepository == null)
+                if (this.userRepository == null)
                 {
                     this.userRepository = new UserRepository(this.context.User);
                 }
 
                 return this.userRepository;
+            }
+        }
+
+        private LockerRepository lockerRepository;
+
+        public ILockerRepository LockerRepository
+        {
+            get
+            {
+                if (this.lockerRepository == null)
+                {
+                    this.lockerRepository = new LockerRepository(this.context.Locker);
+                }
+
+                return this.lockerRepository;
+            }
+        }
+
+        private LockerBlockRepository lockerBlockRepository;
+
+        public ILockerBlockRepository LockerBlockRepository
+        {
+            get
+            {
+                if (this.lockerBlockRepository == null)
+                {
+                    this.lockerBlockRepository = new LockerBlockRepository(this.context.LockerBlock);
+                }
+
+                return lockerBlockRepository;
+            }
+        }
+
+        private CustomerActivityRepository customerActivityRepository;
+
+        public ICustomerActivityRepository CustomerActivityRepository
+        {
+            get
+            {
+                if (this.customerActivityRepository == null)
+                {
+                    this.customerActivityRepository = new CustomerActivityRepository(this.context.CustomerActivity);
+                }
+
+                return this.customerActivityRepository;
+            }
+        }
+
+        private SectorRepository sectorRepostory;
+
+        public ISectorRepository SectorRepository
+        {
+            get
+            {
+                if (this.sectorRepostory == null)
+                {
+                    this.sectorRepostory = new SectorRepository(this.context.Sector);
+                }
+
+                return this.sectorRepostory;
+            }
+        }
+
+        private SectorLocationRepository sectorLocationRepository;
+
+        public ISectorLocationRepository SectorLocationRepository
+        {
+            get
+            {
+                if(this.sectorLocationRepository == null)
+                {
+                    this.sectorLocationRepository = new SectorLocationRepository(this.context.SectorLocation);
+                }
+
+                return this.sectorLocationRepository;
             }
         }
 

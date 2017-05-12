@@ -56,11 +56,21 @@
   <ItemGroup>
     <Compile Include="EntityFramework\LockerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CustomerActivityRepository.cs" />
+    <Compile Include="Repositories\Interface\ICustomerActivityRepository.cs" />
+    <Compile Include="Repositories\Interface\ILockerBlockRepository.cs" />
+    <Compile Include="Repositories\Interface\ILockerRepository.cs" />
     <Compile Include="Repositories\Interface\ILockerUnitOfWork.cs" />
     <Compile Include="Repositories\Interface\ICustomerRepository.cs" />
+    <Compile Include="Repositories\Interface\ISectorLocationRepository.cs" />
+    <Compile Include="Repositories\Interface\ISectorRepository.cs" />
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\LockerBlockRepository.cs" />
+    <Compile Include="Repositories\LockerRepository.cs" />
     <Compile Include="Repositories\LockerUnitOfWork.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\SectorLocationRepository.cs" />
+    <Compile Include="Repositories\SectorRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,14 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet)); ;
         }
 
-        public User GetUserByLoginAndPassword(UserAccess userAccess)
+        public User GetByLogin(string login)
+        {
+            if (string.IsNullOrWhiteSpace(login)) { throw new ArgumentNullException(nameof(login)); }
+
+            return this.dbSet.Where(u => u.Login == login).FirstOrDefault();
+        }
+
+        public User GetUserByDataAccess(UserAccess userAccess)
         {
             if (userAccess == null) { throw new ArgumentNullException(nameof(userAccess)); }
 

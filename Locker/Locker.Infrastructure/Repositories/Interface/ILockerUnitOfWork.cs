@@ -10,7 +10,17 @@ namespace Locker.Infrastructure.Repositories.Interface
     {
         ICustomerRepository CustomerRepository { get; }
 
+        ICustomerActivityRepository CustomerActivityRepository { get; }
+        
+        ILockerRepository LockerRepository { get; }
+
+        ILockerBlockRepository LockerBlockRepository { get; }
+
         IUserRepository UserRepository { get; }
+
+        ISectorRepository SectorRepository { get; }
+
+        ISectorLocationRepository SectorLocationRepository { get; }
 
         void Dispose();
 

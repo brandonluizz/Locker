@@ -3,6 +3,7 @@ using Locker.DomainModel.DTO;
 using System;
 using System.Web.Mvc;
 using Locker.DomainModel.Model;
+using Locker.Infrastructure.Repositories.Interface;
 
 namespace Locker.Presentation.Controllers
 {
@@ -10,13 +11,16 @@ namespace Locker.Presentation.Controllers
     {
         private readonly IUserAccessManagement userAccessManagement;
 
-        public HomeController(IUserAccessManagement userAccessManagement)
+        public HomeController(IUserAccessManagement userAccessManagement, 
+            ILockerUnitOfWork unitOfWork): base (unitOfWork)
         {
             this.userAccessManagement = userAccessManagement ?? throw new ArgumentNullException(nameof(userAccessManagement));
         }
 
         public ActionResult Index()
         {
+            if (this.LoggedUser != null) { return RedirectToAction("Index", "Dashboard"); }
+
             return View();
         }
 
@@ -37,7 +41,7 @@ namespace Locker.Presentation.Controllers
                 this.SetViewBagWithLoggedUser(response.User);
             }
             
-            return Json(response.Success);
+            return Json(response);
         }
 
         private void SetViewBagWithLoggedUser(User user)

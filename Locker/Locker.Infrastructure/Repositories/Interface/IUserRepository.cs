@@ -10,6 +10,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface IUserRepository
     {
-        User GetUserByLoginAndPassword(UserAccess userAccess);
+        User GetUserByDataAccess(UserAccess userAccess);
+
+        User GetByLogin(string login);
     }
 }
