@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Locker.DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ISectorRepository
     {
+        void Add(Sector sector);
 
+        IList<Sector> GetAll();
     }
 }

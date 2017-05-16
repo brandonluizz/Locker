@@ -9,13 +9,25 @@ using System.Threading.Tasks;
 
 namespace Locker.Infrastructure.Repositories
 {
-    public class LockerBlockRepository: ILockerBlockRepository
+    public class LockerBlockRepository : ILockerBlockRepository
     {
         private readonly IDbSet<LockerBlock> dbSet;
 
         public LockerBlockRepository(IDbSet<LockerBlock> dbSet)
         {
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
+        }
+
+        public void Add(LockerBlock lockerBlock)
+        {
+            if (lockerBlock == null) { throw new ArgumentNullException(nameof(lockerBlock)); }
+
+            this.dbSet.Add(lockerBlock);
+        }
+
+        public IList<LockerBlock> GetAll()
+        {
+            return this.dbSet.ToList();
         }
     }
 }

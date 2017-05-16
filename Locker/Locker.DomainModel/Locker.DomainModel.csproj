@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\LockerManagementResponse.cs" />
+    <Compile Include="DTO\SectorManagementResponse.cs" />
     <Compile Include="DTO\UserAccess.cs" />
     <Compile Include="DTO\UserAccessResponse.cs" />
     <Compile Include="Model\Locker.cs" />

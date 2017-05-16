@@ -24,6 +24,17 @@ namespace Locker.Presentation.Controllers
             return View();
         }
 
+        [HttpGet, Route("sair")]
+        public ActionResult Logoff()
+        {
+            if(this.UserCookie == null) { return RedirectToAction("Index"); }
+
+            this.UserCookie.Expires = DateTime.Now.AddDays(-1);
+            this.Response.Cookies.Set(this.UserCookie);
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public JsonResult DoLogin(UserAccess userAccess)
         {

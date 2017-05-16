@@ -21,6 +21,6 @@ namespace Locker.DomainModel
 
         public virtual Sector Sector { get; set; }
 
-        public virtual LockerBlock LockerBLock { get; set; }
+        public virtual LockerBlock LockerBlock { get; set; }
     }
 }

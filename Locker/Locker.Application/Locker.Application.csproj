@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILockerManagement.cs" />
     <Compile Include="Interfaces\IUserAccessManagement.cs" />
+    <Compile Include="Interfaces\ISectorManagement.cs" />
+    <Compile Include="LockerManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectorManagement.cs" />
     <Compile Include="UserAccessManagement.cs" />
   </ItemGroup>
   <ItemGroup>

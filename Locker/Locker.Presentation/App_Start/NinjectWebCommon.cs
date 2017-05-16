@@ -69,6 +69,8 @@ namespace Locker.Presentation.App_Start
             kernel.Bind<LockerContext>().To<LockerContext>();
             kernel.Bind<ILockerUnitOfWork>().To<LockerUnitOfWork>();
             kernel.Bind<IUserAccessManagement>().To<UserAccessManagement>();
+            kernel.Bind<ISectorManagement>().To<SectorManagement>();
+            kernel.Bind<ILockerManagement>().To<LockerManagement>();
         }        
     }
 }

@@ -13,6 +13,13 @@ namespace Locker.DomainModel
 
         public int TotalNumberOfHorizontalLockers { get; set; }
 
-        public int TotalNumberOfLockers { get; set; }
+        public int TotalNumberOfLockers
+        {
+            get
+            {
+                return this.TotalNumberOfHorizontalLockers * this.TotalNumberOfVerticalLockers;
+            }
+            set { }
+        }
     }
 }

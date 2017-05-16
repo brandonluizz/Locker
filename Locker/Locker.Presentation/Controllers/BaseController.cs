@@ -56,6 +56,20 @@ namespace Locker.Presentation.Controllers
             }
         }
 
+        public HttpCookie UserCookie
+        {
+            get
+            {
+                HttpCookie userCookie = this.Request.Cookies.Get(this.GetLoggedUserCookieKey());
+
+                return userCookie;
+            }
+            set
+            {
+
+            }
+        }
+
         private void SetViewBagWithLoggedUser(User user)
         {
             ViewBag.LoggedUser = user;

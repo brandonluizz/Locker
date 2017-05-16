@@ -8,5 +8,6 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ILockerRepository
     {
+        void Add(DomainModel.Locker locker);
     }
 }

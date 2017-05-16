@@ -17,5 +17,17 @@ namespace Locker.Infrastructure.Repositories
         {
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
         }
+
+        public void Add(Sector sector)
+        {
+            if (sector == null) { throw new ArgumentNullException(nameof(sector)); }
+
+            this.dbSet.Add(sector);
+        }
+
+        public IList<Sector> GetAll()
+        {
+            return this.dbSet.ToList();
+        }
     }
 }

@@ -2,25 +2,350 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Configurações</h2>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Adicionar novo Locker</h3>
+<div id="sector-form">
+    <h3>Configurações</h3>
+    <hr />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Configurações</h3>
+        </div>
+        <div class="panel-body">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" data-bind="event: { click: OpenNewSectorModal }">Adicionar novo setor</button>
+                <button type="button" class="btn btn-default" id="open-block-modal">Adicionar novo bloco</button>
+                <button type="button" class="btn btn-default" id="open-locker-modal">Adicionar Novo Armário</button>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-        Panel content
+
+    <div class="modal fade" id="sector-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Adicionar Novo Setor</h4>
+                </div>
+
+                <form data-bind="submit: SectorSubmit">
+                    <div class="modal-body" id="sectorViewModel">
+                        <div class="form-group">
+                            <label for="sector-name" class="form-control-label">Nome do Setor(Descrição):</label>
+                            <input type="text" class="form-control" id="SectorName" placeholder="Nome" name="SectorName" data-bind="value: SectorName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Localização do setor:</label>
+                            <select type="text" name="SectorLocationId" class="form-control"
+                                    data-bind="options: SectorLocations,
+                                      optionsText:'description',
+                                      optionsValue:'value',
+                                      value: SectorLocation,
+                                      optionsCaption: 'Selecione'"></select>
+                        </div>
+                        <div class="alert alert-success" role="alert" data-bind="visible: NewSectorAddedWithSuccess">
+                            <strong>O setor foi adicionada com sucesso!</strong>
+                        </div>
+                        <div class="alert alert-warning" role="alert" data-bind="visible: NewSectorAddedWithError">
+                            <strong>Ocorreu um erro ao adicionar o setor, por favor tente novamente!</strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="block-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Adicionar Novo Setor</h4>
+            </div>
+
+            <form data-bind="submit: LockerBlockSubmit">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="sector-name" class="form-control-label">Qtde de Armários Verticais:</label>
+                        <input type="text" class="form-control" placeholder="Armários Verticais"
+                               name="TotalNumberOfVerticalLockers" data-bind="value: TotalNumberOfVerticalLockers">
+                    </div>
+                    <div class="form-group">
+                        <label for="sector-name" class="form-control-label">Qtde de Armários Horizontais:</label>
+                        <input type="text" class="form-control" placeholder="Armários Horizontais"
+                               name="TotalNumberOfHorizontalLockers" data-bind="value: TotalNumberOfHorizontalLockers">
+                    </div>
+                    <div class="alert alert-success" role="alert" data-bind="visible: BlockAddedWithSuccess">
+                        <strong>O setor foi adicionada com sucesso!</strong>
+                    </div>
+                    <div class="alert alert-warning" role="alert" data-bind="visible: BlockError">
+                        <strong>Ocorreu um erro ao adicionar o setor, por favor tente novamente!</strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
+<div class="modal fade" id="locker-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Adicionar Novo Setor</h4>
+            </div>
+
+            <form data-bind="submit: LockerSubmit">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="sector-name" class="form-control-label">Número da posição vertical:</label>
+                        <input type="text" class="form-control" placeholder="Posição vertical" name="VerticalPositionNumber"
+                               data-bind="value: VerticalPositionNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="sector-name" class="form-control-label">Número da posição horizontal:</label>
+                        <input type="text" class="form-control" placeholder="Posição horizontal" name="HorizontalPositionNumber"
+                               data-bind="value: HorizontalPositionNumber">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Setor:</label>
+                        <select type="text" name="SectorId" class="form-control"
+                                data-bind="options: Sectors,
+                                      optionsText:'description',
+                                      optionsValue:'value',
+                                      value: Sector,
+                                      optionsCaption: 'Selecione'"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Bloco:</label>
+                        <select type="text" name="LockerBlockId" class="form-control"
+                                data-bind="options: LockerBlockers,
+                                      optionsText:'description',
+                                      optionsValue:'value',
+                                      value: LockerBlock,
+                                      optionsCaption: 'Selecione'"></select>
+                    </div>
+                    <div class="alert alert-success" role="alert" data-bind="visible: NewLockerAddedWithSuccess">
+                        <strong>O armário foi adicionado com sucesso!</strong>
+                    </div>
+                    <div class="alert alert-warning" role="alert" data-bind="visible: NewLockerError">
+                        <strong>Ocorreu um erro ao adicionar o armário, por favor tente novamente!</strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
 
-        var viewModel = function () {
+        var sectorViewModel = function () {
             var self = this;
 
+            self.SectorName = ko.observable('');
+            self.SectorLocation = ko.observable('');
+            self.SectorLocations = ko.observableArray();
+            self.SelectedSectorLocation = ko.observable();
+            self.NewSectorAddedWithSuccess = ko.observable(false);
+            self.NewSectorAddedWithError = ko.observable(false);
+
+            self.SectorSubmit = function (formElement) {
+                if (self.SectorFormIsValid()) {
+                    $.post('/LockerSetup/AddNewSector/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
+                }
+            }
+
+            self.OpenNewSectorModal = function () {
+                self.CleanSectorHtmlValues();
+                $('#sector-modal').modal('show');
+            }
+
+            self.SectorFormIsValid = function () {
+                if (self.SectorName === '') { return false; }
+                if (self.SectorLocation === '') { return false; }
+                return true;
+            }
+
+            self.CleanSectorHtmlValues = function () {
+                self.SectorName('');
+                self.NewSectorAddedWithSuccess(false);
+                self.NewSectorAddedWithError(false);
+            }
+
+            function GetSectorLocations() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/LockerSetup/GetSectorLocations/',
+                    success: function (data) {
+                        if (data) {
+                            var response = $.parseJSON(JSON.stringify(data));
+
+                            for (var i = 0; i < response.length; i++) {
+                                var sectorLocations = new DropDown(response[i].SectorLocationId, response[i].SectorLocationName);
+                                self.SectorLocations.push(sectorLocations);
+                            }
+
+                            self.SelectedSectorLocation(self.SectorLocation);
+                        }
+                    }
+                });
+            };
+
+            function SubmittedWithSuccess(data) {
+                if (data.Success) {
+                    self.NewSectorAddedWithSuccess(true);
+                } else {
+                    self.NewSectorAddedWithError(true);
+                }
+            }
+
+            self.InitializeComponent = function () {
+                GetSectorLocations();
+            }();
+        };
+
+        var blockViewModel = function () {
+            var self = this;
+
+            self.TotalNumberOfVerticalLockers = ko.observable('');
+            self.TotalNumberOfHorizontalLockers = ko.observable('');
+            self.BlockAddedWithSuccess = ko.observable(false);
+            self.BlockError = ko.observable(false);
+
+            self.LockerBlockSubmit = function (teste) {
+                debugger
+                if (self.BlockFormIsValid()) {
+                    $.post('/LockerSetup/AddNewLockerBlock/', $(teste).serialize(), SubmittedWithSuccess, 'json');
+                }
+            }
+
+            self.BlockFormIsValid = function () {
+                if (self.TotalNumberOfVerticalLockers === '') { return false; }
+                if (self.TotalNumberOfHorizontalLockers === '') { return false; }
+
+                return true;
+            }
+
+            function SubmittedWithSuccess(data) {
+                if (data.Success) {
+                    self.BlockAddedWithSuccess(true);
+                } else {
+                    self.BlockError(true);
+                }
+            }
+        };
+
+        var lockerViewModel = function () {
+            var self = this;
+
+            self.Sectors = ko.observableArray();
+            self.SelectedSector = ko.observable('');
+            self.Sector = ko.observable('');
+            self.LockerBlockers = ko.observableArray();
+            self.SelectLockerBlock = ko.observable('');
+            self.LockerBlock = ko.observable('');
+            self.NewLockerAddedWithSuccess = ko.observable(false);
+            self.NewLockerError = ko.observable(false);
+            self.VerticalPositionNumber = ko.observable('');
+            self.HorizontalPositionNumber = ko.observable('');
+
+            self.LockerSubmit = function (formElement) {
+                //TODO validar form
+                $.post('/LockerSetup/AddNewLocker/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
+            }
+
+            function GetAllLockerBlocks() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/LockerSetup/GetAllLockerBlocks/',
+                    success: function (data) {
+                        if (data) {
+                            var response = $.parseJSON(JSON.stringify(data));
+
+                            for (var i = 0; i < response.length; i++) {
+                                var lockerBlockers = new DropDown(response[i].LockerBlockId, response[i].LockerBlockId);
+                                self.LockerBlockers.push(lockerBlockers);
+                            }
+
+                            self.SelectLockerBlock(self.LockerBlock);
+                        }
+                    }
+                });
+            };
+
+            function GetSectors() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/LockerSetup/GetAllSectors/',
+                    success: function (data) {
+                        if (data) {
+                            var response = $.parseJSON(JSON.stringify(data));
+
+                            for (var i = 0; i < response.length; i++) {
+                                var sectors = new DropDown(response[i].SectorId, response[i].SectorName);
+                                self.Sectors.push(sectors);
+                            }
+
+                            self.SelectedSector(self.Sector);
+                        }
+                    }
+                });
+            };
+
+            function SubmittedWithSuccess(data) {
+                if (data.Success) {
+                    self.NewLockerAddedWithSuccess(true);
+                    self.NewLockerError(false);
+                } else {
+                    self.NewLockerAddedWithSuccess(false);
+                    self.NewLockerError(true);
+                }
+            }
+
+            self.InitializeComponent = function () {
+                GetSectors();
+                GetAllLockerBlocks();
+            }();
+        };
+
+        function DropDown(value, description) {
+            this.value = value;
+            this.description = description;
         }
 
-        ko.applyBindings(new viewModel());
+        $('#open-block-modal').click(function () {
+            $('#block-modal').modal('show');
+        });
+
+        $('#open-locker-modal').click(function () {
+            $('#locker-modal').modal('show');
+        });
+
+        var sectorForm = document.getElementById('sector-form');
+        ko.applyBindings(new sectorViewModel(), sectorForm);
+
+        var blockForm = document.getElementById('block-modal');
+        ko.applyBindings(new blockViewModel(), blockForm);
+
+        var lockerForm = document.getElementById('locker-modal');
+        ko.applyBindings(new lockerViewModel(), lockerForm);
     });
 </script>
