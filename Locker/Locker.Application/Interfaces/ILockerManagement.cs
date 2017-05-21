@@ -15,5 +15,9 @@ namespace Locker.Application.Interfaces
         IList<LockerBlock> GetAllLockerBlocks();
 
         LockerManagementResponse AddNewLocker(DomainModel.Locker locker);
+
+        IList<DomainModel.Locker> GetAllLockers();
+
+        LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId);
     }
 }

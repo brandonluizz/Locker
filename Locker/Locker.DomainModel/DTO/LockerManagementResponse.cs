@@ -13,6 +13,14 @@ namespace Locker.DomainModel.DTO
             this.Success = success;
         }
 
+        public LockerManagementResponse(bool success, string message)
+        {
+            this.Success = success;
+            this.Message = message;
+        }
+
         public bool Success { get; set; }
+
+        public string Message { get; set; }
     }
 }

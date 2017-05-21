@@ -9,6 +9,9 @@ namespace Locker.DomainModel
         [Key]
         public int LockerBlockId { get; set; }
 
+        [ForeignKey("Sector")]
+        public int SectorId { get; set; }
+
         public int TotalNumberOfVerticalLockers { get; set; }
 
         public int TotalNumberOfHorizontalLockers { get; set; }
@@ -21,5 +24,7 @@ namespace Locker.DomainModel
             }
             set { }
         }
+
+        public virtual Sector Sector { get; set; }
     }
 }

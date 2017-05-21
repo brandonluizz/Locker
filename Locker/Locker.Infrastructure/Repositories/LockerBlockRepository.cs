@@ -29,5 +29,10 @@ namespace Locker.Infrastructure.Repositories
         {
             return this.dbSet.ToList();
         }
+
+        public LockerBlock GetById(int lockerBlockId)
+        {
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId).FirstOrDefault();
+        }
     }
 }

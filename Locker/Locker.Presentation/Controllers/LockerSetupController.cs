@@ -76,5 +76,21 @@ namespace Locker.Presentation.Controllers
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetAllLockers()
+        {
+            var lockers = this.lockerManagement.GetAllLockers();
+
+            return Json(lockers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult IsAvailableLockerBlock(int lockerBlockId)
+        {
+            var response = this.lockerManagement.IsAvailableLockerBlock(lockerBlockId);
+
+            return Json(response);
+        }
     }
 }

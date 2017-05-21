@@ -55,5 +55,35 @@ namespace Locker.Application
         {
             return this.unitOfWork.LockerBlockRepository.GetAll();
         }
+
+        public IList<DomainModel.Locker> GetAllLockers()
+        {
+            return this.unitOfWork.LockerRepository.GetAll();
+        }
+
+        public LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId)
+        {
+            try
+            {
+                var lockers = this.unitOfWork.LockerRepository.GetAllLockersByLockerBlockId(lockerBlockId);
+
+                bool isAvailable = this.VeriryIfIsAvailable(lockers);
+
+                return new LockerManagementResponse(isAvailable);
+            }
+            catch (Exception)
+            {
+                return new LockerManagementResponse(false);
+            }
+        }
+
+        private bool VeriryIfIsAvailable(IList<DomainModel.Locker> lockers)
+        {
+            int limit = lockers.Select(l => l.LockerBlock.TotalNumberOfLockers).FirstOrDefault();
+
+            int totalUsed = lockers.Count;
+
+            return limit >= totalUsed;
+        }
     }
 }

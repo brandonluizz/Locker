@@ -12,5 +12,7 @@ namespace Locker.Infrastructure.Repositories.Interface
         void Add(LockerBlock lockerBlock);
 
         IList<LockerBlock> GetAll();
+
+        LockerBlock GetById(int lockerBlockId);        
     }
 }

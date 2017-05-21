@@ -9,17 +9,12 @@ namespace Locker.DomainModel
         [Key]
         public int LockerId { get; set; }
 
-        [ForeignKey("Sector")]
-        public int SectorId { get; set; }
-
-        [ForeignKey("LockerBLock")]
+        [ForeignKey("LockerBlock")]
         public int LockerBlockId { get; set; }
 
         public int VerticalPositionNumber { get; set; }
 
         public int HorizontalPositionNumber { get; set; }
-
-        public virtual Sector Sector { get; set; }
 
         public virtual LockerBlock LockerBlock { get; set; }
     }

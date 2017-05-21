@@ -17,8 +17,8 @@
                     baseZ: 9999,
                     message: '<div><h3 style="color: white">Carregando...</h3><img src="/Content/Images/lockerLoading.gif" style="width: 15%" alt="carregando" title="carregando"/></div>',
                     css: {
-                         border: '0px solid rgb(170, 170, 170)',
-                         backgroundColor: 'none' 
+                        border: '0px solid rgb(170, 170, 170)',
+                        backgroundColor: 'none'
                     }
                 });
             }).ajaxStop($.unblockUI);
@@ -27,36 +27,39 @@
     </script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Locker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Locker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @if (ViewBag.LoggedUser != null)
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li><a href="/configuracao">Configurações</a></li>
+                        }
+                    </ul>
                     @if (ViewBag.LoggedUser != null)
                     {
-                        <li><a href="/configuracao">Configurações</a></li>
-                        <li style="float:left"><a href="/sair">Sair</a></li>
+                        <ul class="nav navbar-nav navbar-right">
+                            <p class="navbar-text">Bem Vindo @ViewBag.LoggedUser.UserName!</p>
+                            <li><a href="/sair"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair</a></li>
+                        </ul>
                     }
-                </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
         @RenderBody()
-        <hr />
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-        </footer>
+        @*<hr />*@
+        <footer></footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

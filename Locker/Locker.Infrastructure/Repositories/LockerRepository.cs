@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Locker.DomainModel;
+using System.Data.SqlClient;
 
 namespace Locker.Infrastructure.Repositories
 {
@@ -23,6 +24,16 @@ namespace Locker.Infrastructure.Repositories
             if (locker == null) { throw new ArgumentNullException(nameof(locker)); }
 
             this.dbSet.Add(locker);
+        }
+
+        public IList<DomainModel.Locker> GetAll()
+        {
+            return this.dbSet.ToList();
+        }
+
+        public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId)
+        {
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId).ToList();
         }
     }
 }
