@@ -40,16 +40,17 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        @if (ViewBag.LoggedUser != null)
+                        @if (ViewBag.LoggedUser != null) 
                         {
-                            <li><a href="/pagina-principal">Pagina Principal</a></li>
-                            <li><a href="/configuracao">Configurações</a></li>
+                            <li><a href="/pagina-principal"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Pagina Principal</a></li>
+                            <li><a href="/configuracao"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configurações</a></li>
+                            <li><a href="/configuracao"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Relatórios</a></li>
                         }
                     </ul>
                     @if (ViewBag.LoggedUser != null)
                     {
                         <ul class="nav navbar-nav navbar-right">
-                            <p class="navbar-text">Bem Vindo @ViewBag.LoggedUser.UserName!</p>
+                            <li><p class="navbar-text"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Bem Vindo @ViewBag.LoggedUser.UserName!</p></li>
                             <li><a href="/sair"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair</a></li>
                         </ul>
                     }
