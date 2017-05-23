@@ -2,48 +2,42 @@
     ViewBag.Title = "Página Principal";
 }
 
-<h3>Gerenciamento</h3>
+<h3>Gerenciamento de Armários</h3>
 <hr />
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Painel de Armários</h3>
+
+<div class="col-md-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Armário 1 - <span class="label label-success">Disponível</span></h3>
+        </div>
+        <div class="panel-body">
+            <span>Utilizado por: Brandon</span>
+            <hr />
+            <button class="btn btn-info" disabled>Abrir armário</button>
+        </div>
     </div>
-    <div class="panel-body">
-        <div class="col-md-4">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Armário 1 - <span class="label label-success">Disponível</span></h3>
-                </div>
-                <div class="panel-body">
-                    <span>Utilizado por: Brandon</span>
-                    <hr />
-                    <button class="btn btn-info" disabled>Abrir armário</button>
-                </div>
-            </div>
+</div>
+<div class="col-md-4">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">Armário 2 - <span class="label label-danger">Em Uso</span></h3>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Armário 2 - <span class="label label-danger">Em Uso</span></h3>
-                </div>
-                <div class="panel-body">
-                    <span>Utilizado por: Brandon</span>
-                    <hr />
-                    <button class="btn btn-info">Abrir armário</button>
-                </div>
-            </div>
+        <div class="panel-body">
+            <span>Utilizado por: Brandon</span>
+            <hr />
+            <button class="btn btn-info">Abrir armário</button>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Armário 3 - <span class="label label-success">Disponível</span></h3>
-                </div>
-                <div class="panel-body">
-                    <span>Utilizado por: Brandon</span>
-                    <hr />
-                    <button class="btn btn-info" disabled>Abrir armário</button>
-                </div>
-            </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Armário 3 - <span class="label label-success">Disponível</span></h3>
+        </div>
+        <div class="panel-body">
+            <span>Utilizado por: Brandon</span>
+            <hr />
+            <button class="btn btn-info" disabled>Abrir armário</button>
         </div>
     </div>
 </div>
