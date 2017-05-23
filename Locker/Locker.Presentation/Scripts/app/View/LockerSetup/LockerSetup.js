@@ -142,7 +142,6 @@
     var lockerViewModel = function () {
         var self = this;
 
-
         self.LockerBlockers = ko.observableArray();
         self.SelectLockerBlock = ko.observable('');
         self.LockerBlock = ko.observable('');
@@ -150,39 +149,65 @@
         self.NewLockerError = ko.observable(false);
         self.VerticalPositionNumber = ko.observable('');
         self.HorizontalPositionNumber = ko.observable('');
-        self.IsAvailableLockerBlock = ko.observable(false);
+        self.IsUnavailableLockerBlock = ko.observable(false);
         self.HaveBlankFields = ko.observable(false);
+        self.IsUnavailableLockerPosition = ko.observable(false);
 
         self.LockerSubmit = function (formElement) {
             //TODO validar form
             if (IsValidForm()) {
-                if (ValidadeIsAvailableLockerBlock()) {
-                    $.post('/LockerSetup/AddNewLocker/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
-                }
+                ValidateIsAvailableLockerBlockAndSubmit(formElement);
             }
         }
 
         function IsValidForm() {
-            if (self.VerticalPositionNumber()) { return true; }
-            if (self.HorizontalPositionNumber()) { return true; }
-            if (self.LockerBlock()) { return true; }
+            debugger;
+            if (self.VerticalPositionNumber() === '') { self.HaveBlankFields(true); return false; }
+            if (self.HorizontalPositionNumber() === '') { self.HaveBlankFields(true); return false; }
+            if ($('#LockerBlock').val() === '') { self.HaveBlankFields(true); return false; }
 
-            self.HaveBlankFields(true);
+            self.HaveBlankFields(false);
 
-            return false;
+            return true;
         }
 
-        function ValidadeIsAvailableLockerBlock() {
+        function ValidateIsAvailableLockerBlockAndSubmit(formElement) {
             $.ajax({
                 type: 'POST',
                 data: { 'lockerBlockId': self.SelectLockerBlock() },
                 url: '/LockerSetup/IsAvailableLockerBlock/',
                 success: function (data) {
                     if (data) {
+                        debugger
                         var response = $.parseJSON(JSON.stringify(data));
 
-                        self.IsAvailableLockerBlock(data.Success);
-                        return data.Success;
+                        self.IsUnavailableLockerBlock(data.Success == false);
+                        if (data.Success) {
+                            $.ajax({
+                                type: 'POST',
+                                data: {
+                                    "LockerPosition":
+                                    {
+                                        "LockerBlockId": self.LockerBlock,
+                                        "HorizontalPositionNumber": self.HorizontalPositionNumber,
+                                        "VerticalPositionNumber": self.VerticalPositionNumber
+                                    }
+                                },
+                                url: '/LockerSetup/IsAvailableLockerPosition/',
+                                success: function (data) {
+                                    if (data) {
+                                        debugger
+                                        var response = $.parseJSON(JSON.stringify(data));
+
+                                        if (data.Success) {
+                                            $.post('/LockerSetup/AddNewLocker/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
+                                        } else {
+                                            self.IsUnavailableLockerPosition(true);
+                                        }
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -212,9 +237,13 @@
             if (data.Success) {
                 self.NewLockerAddedWithSuccess(true);
                 self.NewLockerError(false);
+                self.IsUnavailableLockerBlock(false);
+                self.HaveBlankFields(false);
+                self.IsUnavailableLockerPosition(false);
             } else {
                 self.NewLockerAddedWithSuccess(false);
                 self.NewLockerError(true);
+                self.NewLockerAddedWithSuccess(false);
             }
         }
 

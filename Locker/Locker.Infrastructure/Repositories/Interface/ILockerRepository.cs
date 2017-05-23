@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Locker.DomainModel;
+using Locker.DomainModel.DTO;
 
 namespace Locker.Infrastructure.Repositories.Interface
 {
@@ -14,5 +15,7 @@ namespace Locker.Infrastructure.Repositories.Interface
         IList<DomainModel.Locker> GetAll();
 
         IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId);
+
+        DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition);
     }
 }

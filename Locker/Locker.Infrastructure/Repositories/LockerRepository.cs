@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Locker.DomainModel;
 using System.Data.SqlClient;
+using Locker.DomainModel.DTO;
 
 namespace Locker.Infrastructure.Repositories
 {
@@ -34,6 +35,15 @@ namespace Locker.Infrastructure.Repositories
         public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId)
         {
             return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId).ToList();
+        }
+
+        public DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition)
+        {
+            if (lockerPosition == null) { throw new ArgumentNullException(nameof(lockerPosition)); }
+
+            return this.dbSet.Where(l => l.HorizontalPositionNumber == lockerPosition.HorizontalPositionNumber
+                                            && l.VerticalPositionNumber == lockerPosition.VerticalPositionNumber
+                                            && l.LockerBlockId == lockerPosition.LockerBlockId).FirstOrDefault();
         }
     }
 }

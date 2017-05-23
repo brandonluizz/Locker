@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Locker.Infrastructure.Repositories.Interface;
 using Locker.Application.Interfaces;
 using Locker.DomainModel;
+using Locker.DomainModel.DTO;
 
 namespace Locker.Presentation.Controllers
 {
@@ -89,6 +90,14 @@ namespace Locker.Presentation.Controllers
         public JsonResult IsAvailableLockerBlock(int lockerBlockId)
         {
             var response = this.lockerManagement.IsAvailableLockerBlock(lockerBlockId);
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public JsonResult IsAvailableLockerPosition(LockerPosition lockerPosition)
+        {
+            var response = this.lockerManagement.IsAvailableLockerPosition(lockerPosition);
 
             return Json(response);
         }

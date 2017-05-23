@@ -19,5 +19,7 @@ namespace Locker.Application.Interfaces
         IList<DomainModel.Locker> GetAllLockers();
 
         LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId);
+
+        LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition);
     }
 }

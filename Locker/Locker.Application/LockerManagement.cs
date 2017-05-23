@@ -19,6 +19,22 @@ namespace Locker.Application
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
+        public LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition)
+        {
+            try
+            {
+                var locker = this.unitOfWork.LockerRepository.GetLockersByPosition(lockerPosition);
+
+                bool isAvailable = locker == null;
+
+                return new LockerManagementResponse(isAvailable);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public LockerManagementResponse AddNewLocker(DomainModel.Locker locker)
         {
             try
@@ -67,7 +83,7 @@ namespace Locker.Application
             {
                 var lockers = this.unitOfWork.LockerRepository.GetAllLockersByLockerBlockId(lockerBlockId);
 
-                bool isAvailable = this.VeriryIfIsAvailable(lockers);
+                bool isAvailable = this.VeriryIfIsAvailableLockerBlock(lockers);
 
                 return new LockerManagementResponse(isAvailable);
             }
@@ -77,13 +93,15 @@ namespace Locker.Application
             }
         }
 
-        private bool VeriryIfIsAvailable(IList<DomainModel.Locker> lockers)
+        private bool VeriryIfIsAvailableLockerBlock(IList<DomainModel.Locker> lockers)
         {
+            if (lockers.Count == default(int)) { return true; }
+
             int limit = lockers.Select(l => l.LockerBlock.TotalNumberOfLockers).FirstOrDefault();
 
             int totalUsed = lockers.Count;
 
-            return limit >= totalUsed;
+            return limit > totalUsed;
         }
     }
 }
