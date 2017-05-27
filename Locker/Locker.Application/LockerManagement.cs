@@ -19,11 +19,11 @@ namespace Locker.Application
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition)
+        public LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition, int traderId)
         {
             try
             {
-                var locker = this.unitOfWork.LockerRepository.GetLockersByPosition(lockerPosition);
+                var locker = this.unitOfWork.LockerRepository.GetLockersByPosition(lockerPosition, traderId);
 
                 bool isAvailable = locker == null;
 
@@ -72,16 +72,16 @@ namespace Locker.Application
             return this.unitOfWork.LockerBlockRepository.GetAll();
         }
 
-        public IList<DomainModel.Locker> GetAllLockers()
+        public IList<DomainModel.Locker> GetAllLockers(int traderId)
         {
-            return this.unitOfWork.LockerRepository.GetAll();
+            return this.unitOfWork.LockerRepository.GetAll(traderId);
         }
 
-        public LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId)
+        public LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId, int traderId)
         {
             try
             {
-                var lockers = this.unitOfWork.LockerRepository.GetAllLockersByLockerBlockId(lockerBlockId);
+                var lockers = this.unitOfWork.LockerRepository.GetAllLockersByLockerBlockId(lockerBlockId, traderId);
 
                 bool isAvailable = this.VeriryIfIsAvailableLockerBlock(lockers);
 

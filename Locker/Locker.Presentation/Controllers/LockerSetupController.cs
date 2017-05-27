@@ -33,7 +33,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetSectorLocations()
         {
-            var sectorLocations = this.sectorManagement.GetSectorLocations();
+            var sectorLocations = this.sectorManagement.GetSectorLocations(this.LoggedUser.TraderId);
 
             return Json(sectorLocations, JsonRequestBehavior.AllowGet);
         }
@@ -41,6 +41,8 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult AddNewSector(Sector request)
         {
+            request.SetTraderId(this.LoggedUser.TraderId);
+
             var respose = this.sectorManagement.AddNewSector(request);
 
             return Json(respose);
@@ -49,7 +51,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllSectors()
         {
-            var sectors = this.sectorManagement.GetSectors();
+            var sectors = this.sectorManagement.GetSectors(this.LoggedUser.TraderId);
 
             return Json(sectors, JsonRequestBehavior.AllowGet);
         }
@@ -57,6 +59,8 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult AddNewLockerBlock(LockerBlock request)
         {
+            request.SetTraderId(this.LoggedUser.TraderId);
+
             var response = this.lockerManagement.AddNewLockerBlock(request);
 
             return Json(response);
@@ -65,6 +69,8 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult AddNewLocker(DomainModel.Locker request)
         {
+            request.SetTraderId(LoggedUser.TraderId);
+
             var response = this.lockerManagement.AddNewLocker(request);
 
             return Json(response);
@@ -81,7 +87,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockers()
         {
-            var lockers = this.lockerManagement.GetAllLockers();
+            var lockers = this.lockerManagement.GetAllLockers(this.LoggedUser.TraderId);
 
             return Json(lockers, JsonRequestBehavior.AllowGet);
         }
@@ -89,7 +95,7 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult IsAvailableLockerBlock(int lockerBlockId)
         {
-            var response = this.lockerManagement.IsAvailableLockerBlock(lockerBlockId);
+            var response = this.lockerManagement.IsAvailableLockerBlock(lockerBlockId, this.LoggedUser.TraderId);
 
             return Json(response);
         }
@@ -97,7 +103,7 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult IsAvailableLockerPosition(LockerPosition lockerPosition)
         {
-            var response = this.lockerManagement.IsAvailableLockerPosition(lockerPosition);
+            var response = this.lockerManagement.IsAvailableLockerPosition(lockerPosition, this.LoggedUser.TraderId);
 
             return Json(response);
         }

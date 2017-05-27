@@ -28,5 +28,7 @@ namespace Locker.Infrastructure.EntityFramework
         public DbSet<LockerBlock> LockerBlock { get; set; }
 
         public DbSet<User> User { get; set; }
+
+        public DbSet<Trader> Trader { get; set; }
     }
 }

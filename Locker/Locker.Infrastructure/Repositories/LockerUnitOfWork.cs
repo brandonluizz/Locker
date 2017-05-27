@@ -113,12 +113,27 @@ namespace Locker.Infrastructure.Repositories
         {
             get
             {
-                if(this.sectorLocationRepository == null)
+                if (this.sectorLocationRepository == null)
                 {
                     this.sectorLocationRepository = new SectorLocationRepository(this.context.SectorLocation);
                 }
 
                 return this.sectorLocationRepository;
+            }
+        }
+
+        private TraderRepository traderRepository;
+
+        public ITraderRepository TraderRepository
+        {
+            get
+            {
+                if (this.traderRepository == null)
+                {
+                    this.traderRepository = new TraderRepository(this.context.Trader);
+                }
+
+                return this.traderRepository;
             }
         }
 

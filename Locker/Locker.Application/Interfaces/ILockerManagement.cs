@@ -16,10 +16,10 @@ namespace Locker.Application.Interfaces
 
         LockerManagementResponse AddNewLocker(DomainModel.Locker locker);
 
-        IList<DomainModel.Locker> GetAllLockers();
+        IList<DomainModel.Locker> GetAllLockers(int traderId);
 
-        LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId);
+        LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId, int traderId);
 
-        LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition);
+        LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition, int traderId);
     }
 }

@@ -13,6 +13,6 @@ namespace Locker.Infrastructure.Repositories.Interface
 
         IList<LockerBlock> GetAll();
 
-        LockerBlock GetById(int lockerBlockId);        
+        LockerBlock GetById(int lockerBlockId, int traderId);        
     }
 }

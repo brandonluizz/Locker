@@ -14,6 +14,9 @@ namespace Locker.DomainModel.Model
         [Key]
         public int UserId { get; set; }
 
+        [ForeignKey("Trader")]
+        public int TraderId { get; set; }
+
         public string UserName { get; set; }
 
         public string Login { get; set; }
@@ -23,5 +26,7 @@ namespace Locker.DomainModel.Model
         public string Password { get; set; }
 
         public DateTime CreationDateTime { get; set; }
+
+        public virtual Trader Trader { get; set; }
     }
 }

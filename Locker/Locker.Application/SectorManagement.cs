@@ -35,14 +35,14 @@ namespace Locker.Application
             }
         }
 
-        public IList<SectorLocation> GetSectorLocations()
+        public IList<SectorLocation> GetSectorLocations(int traderId)
         {
-            return this.unitOfWork.SectorLocationRepository.GetSectorLocations();
+            return this.unitOfWork.SectorLocationRepository.GetSectorLocations(traderId);
         }
 
-        public IList<Sector> GetSectors()
+        public IList<Sector> GetSectors(int traderId)
         {
-            return this.unitOfWork.SectorRepository.GetAll();
+            return this.unitOfWork.SectorRepository.GetAll(traderId);
         }
     }
 }

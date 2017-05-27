@@ -1,4 +1,4 @@
-﻿using Locker.DomainModel;
+﻿using Locker.DomainModel.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Locker.Infrastructure.Repositories.Interface
 {
-    public interface ISectorRepository
+    public interface ITraderRepository
     {
-        void Add(Sector sector);
-
-        IList<Sector> GetAll(int traderId);
+        IList<Trader> GetAll();
     }
 }

@@ -22,6 +22,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 
         ISectorLocationRepository SectorLocationRepository { get; }
 
+        ITraderRepository TraderRepository { get; }
+
         void Dispose();
 
         void Commit();

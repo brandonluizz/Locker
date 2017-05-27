@@ -64,6 +64,7 @@
     <Compile Include="Repositories\Interface\ICustomerRepository.cs" />
     <Compile Include="Repositories\Interface\ISectorLocationRepository.cs" />
     <Compile Include="Repositories\Interface\ISectorRepository.cs" />
+    <Compile Include="Repositories\Interface\ITraderRepository.cs" />
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
     <Compile Include="Repositories\LockerBlockRepository.cs" />
     <Compile Include="Repositories\LockerRepository.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\SectorLocationRepository.cs" />
     <Compile Include="Repositories\SectorRepository.cs" />
+    <Compile Include="Repositories\TraderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

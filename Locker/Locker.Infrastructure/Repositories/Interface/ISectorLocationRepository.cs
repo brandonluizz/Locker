@@ -9,6 +9,6 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ISectorLocationRepository
     {
-        IList<SectorLocation> GetSectorLocations();
+        IList<SectorLocation> GetSectorLocations(int traderId);
     }
 }

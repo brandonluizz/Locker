@@ -220,6 +220,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\app\View\Dashboard\Dashboard.js" />
     <Content Include="Scripts\app\View\LockerSetup\LockerSetup.js" />
     <Content Include="Scripts\DropDown.js" />
     <Content Include="Scripts\jquery.blockUI.js" />

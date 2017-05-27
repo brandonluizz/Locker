@@ -27,23 +27,24 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet.Add(locker);
         }
 
-        public IList<DomainModel.Locker> GetAll()
+        public IList<DomainModel.Locker> GetAll(int traderId)
         {
-            return this.dbSet.ToList();
+            return this.dbSet.Where(l => l.TraderId == traderId).ToList();
         }
 
-        public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId)
+        public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId)
         {
-            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId).ToList();
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId && l.TraderId == traderId).ToList();
         }
 
-        public DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition)
+        public DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition, int traderId)
         {
             if (lockerPosition == null) { throw new ArgumentNullException(nameof(lockerPosition)); }
 
             return this.dbSet.Where(l => l.HorizontalPositionNumber == lockerPosition.HorizontalPositionNumber
                                             && l.VerticalPositionNumber == lockerPosition.VerticalPositionNumber
-                                            && l.LockerBlockId == lockerPosition.LockerBlockId).FirstOrDefault();
+                                            && l.LockerBlockId == lockerPosition.LockerBlockId
+                                            && l.TraderId == traderId).FirstOrDefault();
         }
     }
 }

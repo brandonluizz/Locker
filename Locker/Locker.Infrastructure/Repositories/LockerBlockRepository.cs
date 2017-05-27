@@ -30,9 +30,9 @@ namespace Locker.Infrastructure.Repositories
             return this.dbSet.ToList();
         }
 
-        public LockerBlock GetById(int lockerBlockId)
+        public LockerBlock GetById(int lockerBlockId, int traderId)
         {
-            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId).FirstOrDefault();
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId && l.TraderId == traderId).FirstOrDefault();
         }
     }
 }

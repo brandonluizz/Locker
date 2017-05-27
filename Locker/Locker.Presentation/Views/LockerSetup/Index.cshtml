@@ -27,6 +27,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Nome do Setor</th>
                         <th>Bloco Id</th>
                         <th>Número da Posição Vertical</th>
                         <th>Número da Posição Horizontal</th>
@@ -35,6 +36,7 @@
                 <tbody data-bind="foreach: Lockers">
                     <tr>
                         <td data-bind="text: LockerId"></td>
+                        <td data-bind="text: LockerBlock.Sector.SectorName"></td>
                         <td data-bind="text: LockerBlockId"></td>
                         <td data-bind="text: VerticalPositionNumber"></td>
                         <td data-bind="text: HorizontalPositionNumber"></td>

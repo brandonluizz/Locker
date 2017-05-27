@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Locker.DomainModel.Model;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,9 @@ namespace Locker.DomainModel
         [Key]
         public int CustomerId { get; set; }
 
+        [ForeignKey("Trader")]
+        public int TraderId { get; set; }
+
         public string CustomerName { get; set; }
 
         public DateTime BirthDate { get; set; }
@@ -25,5 +29,7 @@ namespace Locker.DomainModel
         public DateTime RegistrationDate { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+
+        public virtual Trader Trader { get; set; }
     }
 }
