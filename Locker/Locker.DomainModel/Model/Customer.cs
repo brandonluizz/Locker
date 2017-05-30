@@ -8,12 +8,13 @@ namespace Locker.DomainModel
     [Table("Customer")]
     public class Customer
     {
-        public Customer(string customerName, DateTime birthDate, DateTime expirationDate)
+        public Customer(string customerName, DateTime birthDate, DateTime expirationDate, string tagUID)
         {
             this.CustomerName = customerName;
             this.BirthDate = birthDate;
             this.ExpirationDate = expirationDate;
             this.RegistrationDate = DateTime.Now;
+            this.TagUID = tagUID;
         }
 
         [Key]
@@ -29,6 +30,8 @@ namespace Locker.DomainModel
         public DateTime RegistrationDate { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+
+        public string TagUID { get; set; }
 
         public virtual Trader Trader { get; set; }
     }

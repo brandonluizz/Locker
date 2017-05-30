@@ -5,16 +5,15 @@
 <div id="sector-form">
     <h3>Configurações</h3>
     <hr />
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Cadastro</h3>
         </div>
         <div class="panel-body">
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" id="open-sector-modal">Adicionar novo setor</button>
-                <button type="button" class="btn btn-default" id="open-block-modal">Adicionar novo bloco</button>
-                <button type="button" class="btn btn-default" id="open-locker-modal">Adicionar Novo Armário</button>
-            </div>
+            <button type="button" class="btn btn-primary" id="open-sector-location-modal">Adicionar nova localização</button>
+            <button type="button" class="btn btn-primary" id="open-sector-modal">Adicionar novo setor</button>
+            <button type="button" class="btn btn-primary" id="open-block-modal">Adicionar novo bloco</button>
+          
         </div>
     </div>
 
@@ -46,7 +45,7 @@
         </div>
     </div>
 
-   
+
     <div class="modal fade" id="sector-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -83,14 +82,51 @@
                         <div class="alert alert-warning" role="alert" data-bind="visible: NewSectorAddedWithError">
                             <strong>Ocorreu um erro ao adicionar o setor, por favor tente novamente!</strong>
                         </div>
+                        <div class="alert alert-warning" role="alert" data-bind="visible: HaveBlankFields">
+                            <strong>Por favor, preencha todos os campos que estão em branco!</strong>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Adicionar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </form>
-              
 
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sector-location-div">
+    <div class="modal fade" id="sector-location-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Adicionar Nova Localização</h4>
+                </div>
+
+                <form data-bind="submit: SectorLocationSubmit">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="sector-name" class="form-control-label">Nome da Localização:</label>
+                            <input type="text" class="form-control" placeholder="Nome da Localização"
+                                   name="SectorLocationName" data-bind="value: SectorLocationName">
+                        </div>
+                        <div class="alert alert-warning" role="alert" data-bind="visible: IsHaveBlankFields">
+                            <strong>Por favor, preencha o campo Nome da Localização!</strong>
+                        </div>
+                        <div class="alert alert-success" role="alert" data-bind="visible: AddedWithSuccess">
+                            <strong>A localização foi adicionada com sucesso!</strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

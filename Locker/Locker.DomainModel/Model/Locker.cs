@@ -14,8 +14,7 @@ namespace Locker.DomainModel
         [ForeignKey("LockerBlock")]
         public int LockerBlockId { get; set; }
 
-        [ForeignKey("Trader")]
-        public int TraderId { get; set; }
+        public int NumberOfPositionLocker { get; set; }
 
         public int VerticalPositionNumber { get; set; }
 
@@ -23,13 +22,8 @@ namespace Locker.DomainModel
 
         public bool IsUsing { get; set; }
 
+        public bool IsActive { get; set; }
+
         public virtual LockerBlock LockerBlock { get; set; }
-
-        public virtual Trader Trader { get; set; }
-
-        public void SetTraderId(int traderId)
-        {
-            this.TraderId = traderId;
-        }
     }
 }

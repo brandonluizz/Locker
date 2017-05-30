@@ -15,5 +15,7 @@ namespace Locker.Application.Interfaces
         IList<Sector> GetSectors(int traderId);
 
         SectorManagementResponse AddNewSector(Sector sector);
+
+        SectorManagementResponse AddNewSectorLocation(SectorLocation request);
     }
 }

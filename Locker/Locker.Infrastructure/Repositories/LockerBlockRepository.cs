@@ -32,7 +32,8 @@ namespace Locker.Infrastructure.Repositories
 
         public LockerBlock GetById(int lockerBlockId, int traderId)
         {
-            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId && l.TraderId == traderId).FirstOrDefault();
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId 
+            && l.Sector.TraderId == traderId).FirstOrDefault();
         }
     }
 }

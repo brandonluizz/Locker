@@ -45,7 +45,7 @@ namespace Locker.Application
 
                 return new LockerManagementResponse(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new LockerManagementResponse(false);
             }

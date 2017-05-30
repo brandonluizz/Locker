@@ -12,8 +12,8 @@
                 success: function (data) {
                     if (data) {
                         var response = $.parseJSON(JSON.stringify(data));
-
                         self.Lockers(response);
+                        console.log(self.Lockers());
                     }
                 }
             });

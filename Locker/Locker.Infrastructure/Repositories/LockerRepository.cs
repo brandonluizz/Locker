@@ -29,12 +29,15 @@ namespace Locker.Infrastructure.Repositories
 
         public IList<DomainModel.Locker> GetAll(int traderId)
         {
-            return this.dbSet.Where(l => l.TraderId == traderId).ToList();
+            return this.dbSet.Where(l => l.LockerBlock.Sector.TraderId == traderId
+            && l.IsActive).ToList();
         }
 
         public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId)
         {
-            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId && l.TraderId == traderId).ToList();
+            return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId 
+            && l.LockerBlock.Sector.TraderId == traderId
+            && l.IsActive).ToList();
         }
 
         public DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition, int traderId)
@@ -44,7 +47,8 @@ namespace Locker.Infrastructure.Repositories
             return this.dbSet.Where(l => l.HorizontalPositionNumber == lockerPosition.HorizontalPositionNumber
                                             && l.VerticalPositionNumber == lockerPosition.VerticalPositionNumber
                                             && l.LockerBlockId == lockerPosition.LockerBlockId
-                                            && l.TraderId == traderId).FirstOrDefault();
+                                            && l.LockerBlock.Sector.TraderId == traderId
+                                            && l.IsActive).FirstOrDefault();
         }
     }
 }

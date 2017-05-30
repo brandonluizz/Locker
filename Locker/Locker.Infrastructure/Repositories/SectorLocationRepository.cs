@@ -18,6 +18,13 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
         }
 
+        public void Add(SectorLocation sectorLocation)
+        {
+            if (sectorLocation == null) { throw new ArgumentNullException(nameof(sectorLocation)); }
+
+            this.dbSet.Add(sectorLocation);
+        }
+
         public IList<SectorLocation> GetSectorLocations(int traderId)
         {
             return this.dbSet.Where(sl => sl.TraderId == traderId).ToList();

@@ -10,6 +10,7 @@
         self.NewSectorAddedWithSuccess = ko.observable(false);
         self.NewSectorAddedWithError = ko.observable(false);
         self.Lockers = ko.observableArray();
+        self.HaveBlankFields = ko.observable(false);
 
         self.SectorSubmit = function (formElement) {
             if (self.SectorFormIsValid()) {
@@ -23,8 +24,16 @@
         }
 
         self.SectorFormIsValid = function () {
-            if (self.SectorName === '') { return false; }
-            if (self.SectorLocation === '') { return false; }
+            if (self.SectorName() === '') {
+                self.HaveBlankFields(true);
+                return false;
+            }
+            if (self.SectorLocation() === '') {
+                self.HaveBlankFields(true);
+                return false;
+            }
+
+            self.HaveBlankFields(false);
             return true;
         }
 
@@ -182,6 +191,7 @@
                         var response = $.parseJSON(JSON.stringify(data));
 
                         self.IsUnavailableLockerBlock(data.Success == false);
+
                         if (data.Success) {
                             $.ajax({
                                 type: 'POST',
@@ -252,6 +262,37 @@
         }();
     };
 
+    var sectorLocationViewModel = function () {
+        var self = this;
+
+        self.SectorLocationName = ko.observable('');
+        self.IsHaveBlankFields = ko.observable(false);
+        self.AddedWithSuccess = ko.observable(false);
+
+        self.SectorLocationSubmit = function (formElement) {
+            if (self.IsValidForm()) {
+                $.post('/LockerSetup/AddNewSectorLocation/', $(formElement).serialize(), SectorLocationAddedWithSuccess, 'json');
+            }
+        }
+
+        self.IsValidForm = function () {
+            debugger;
+            if (self.SectorLocationName() === '') {
+                self.IsHaveBlankFields(true);
+                return false;
+            }
+
+            self.IsHaveBlankFields(false);
+            return true;
+        }
+
+        function SectorLocationAddedWithSuccess(data) {
+            if (data.Success) {
+                self.AddedWithSuccess(true);
+            }
+
+        }
+    };
     function DropDown(value, description) {
         this.value = value;
         this.description = description;
@@ -268,6 +309,13 @@
     $('#open-sector-modal').click(function () {
         $('#sector-modal').modal('show');
     });
+
+    $('#open-sector-location-modal').click(function () {
+        $('#sector-location-modal').modal('show');
+    });
+    
+    var sectorLocation = document.getElementById('sector-location-div');
+    ko.applyBindings(new sectorLocationViewModel(), sectorLocation);
 
     var sectorForm = document.getElementById('sector-form');
     ko.applyBindings(new sectorViewModel(), sectorForm);

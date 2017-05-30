@@ -59,8 +59,6 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult AddNewLockerBlock(LockerBlock request)
         {
-            request.SetTraderId(this.LoggedUser.TraderId);
-
             var response = this.lockerManagement.AddNewLockerBlock(request);
 
             return Json(response);
@@ -69,8 +67,6 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult AddNewLocker(DomainModel.Locker request)
         {
-            request.SetTraderId(LoggedUser.TraderId);
-
             var response = this.lockerManagement.AddNewLocker(request);
 
             return Json(response);
@@ -104,6 +100,16 @@ namespace Locker.Presentation.Controllers
         public JsonResult IsAvailableLockerPosition(LockerPosition lockerPosition)
         {
             var response = this.lockerManagement.IsAvailableLockerPosition(lockerPosition, this.LoggedUser.TraderId);
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewSectorLocation(SectorLocation request)
+        {
+            request.TraderId = this.LoggedUser.TraderId;
+
+            var response = this.sectorManagement.AddNewSectorLocation(request);
 
             return Json(response);
         }

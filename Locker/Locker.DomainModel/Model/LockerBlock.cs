@@ -14,9 +14,6 @@ namespace Locker.DomainModel
         [ForeignKey("Sector")]
         public int SectorId { get; set; }
 
-        [ForeignKey("Trader")]
-        public int TraderId { get; set; }
-
         public int TotalNumberOfVerticalLockers { get; set; }
 
         public int TotalNumberOfHorizontalLockers { get; set; }
@@ -31,12 +28,5 @@ namespace Locker.DomainModel
         }
 
         public virtual Sector Sector { get; set; }
-
-        public virtual Trader Trader { get; set; }
-
-        public void SetTraderId(int traderId)
-        {
-            this.TraderId = traderId;
-        }
     }
 }

@@ -35,6 +35,22 @@ namespace Locker.Application
             }
         }
 
+        public SectorManagementResponse AddNewSectorLocation(SectorLocation request)
+        {
+            try
+            {
+                this.unitOfWork.SectorLocationRepository.Add(request);
+
+                this.unitOfWork.Commit();
+
+                return new SectorManagementResponse(true);
+            }
+            catch (Exception)
+            {
+                return new SectorManagementResponse(false);
+            }
+        }
+
         public IList<SectorLocation> GetSectorLocations(int traderId)
         {
             return this.unitOfWork.SectorLocationRepository.GetSectorLocations(traderId);
