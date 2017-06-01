@@ -12,7 +12,7 @@ namespace Locker.Application.Interfaces
     {
         LockerManagementResponse AddNewLockerBlock(LockerBlock lockerBlock);
 
-        IList<LockerBlock> GetAllLockerBlocks();
+        IList<LockerBlock> GetAllLockerBlocks(int traderId);
 
         LockerManagementResponse AddNewLocker(DomainModel.Locker locker);
 
@@ -21,5 +21,7 @@ namespace Locker.Application.Interfaces
         LockerManagementResponse IsAvailableLockerBlock(int lockerBlockId, int traderId);
 
         LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition, int traderId);
+
+        LockerManagementResponse AddArduinoDataInLocker(DomainModel.Locker locker);
     }
 }

@@ -21,7 +21,7 @@
 </style>
 <h3>Painel de Armários</h3>
 <hr />
-<div data-bind="foreach: Lockers">
+@*<div data-bind="foreach: Lockers">
     <div class="col-md-4">
         <div class="panel" data-bind="css: { panelSuccess: IsUsing == false, 
              greenBorder: IsUsing == false, 
@@ -29,7 +29,7 @@
              redBorder: IsUsing }">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    Armário <span data-bind="text: LockerId"></span> -
+                    Armário <span data-bind="text: NumberOfPositionLocker"></span> -
                     <span class="label label-success" data-bind="visible: IsUsing == false">Disponível</span>
                     <span class="label label-danger" data-bind="visible: IsUsing">Em Uso</span>
                 </h3>
@@ -40,6 +40,13 @@
             </div>
         </div>
     </div>    
+</div>*@
+
+<div data-bind="foreach: Lockers">
+    <div class="col-md-4" data-bind="foreach: LockerBlock">
+        <div class="panel panel-danger" >
+        
+        </div>
+    </div>
 </div>
-<div data-bind="visible: Lockers.length <= 0">Nenhum armário cadastrado</div>
 <script src="~/Scripts/app/View/Dashboard/Dashboard.js" type="text/javascript"></script>

@@ -17,5 +17,9 @@ namespace Locker.Infrastructure.Repositories.Interface
         IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId);
 
         DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition, int traderId);
+
+        void AddRange(IList<DomainModel.Locker> lockers);
+
+        DomainModel.Locker GetById(int lockerId);
     }
 }

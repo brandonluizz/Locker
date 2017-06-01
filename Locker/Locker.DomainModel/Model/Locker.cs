@@ -8,11 +8,28 @@ namespace Locker.DomainModel
     [Table("Locker")]
     public class Locker
     {
+        public Locker()
+        {
+
+        }
+
+        public Locker(int lockerBlockId, int verticalPosition, int horizontalPosition, int numberOfPositionLocker)
+        {
+            this.LockerBlockId = lockerBlockId;
+            this.VerticalPositionNumber = verticalPosition;
+            this.HorizontalPositionNumber = horizontalPosition;
+            this.NumberOfPositionLocker = numberOfPositionLocker;
+            this.IsActive = true;
+            this.IsUsing = false;
+        }
+
         [Key]
         public int LockerId { get; set; }
 
         [ForeignKey("LockerBlock")]
         public int LockerBlockId { get; set; }
+
+        public string ArduinoId { get; set; }
 
         public int NumberOfPositionLocker { get; set; }
 
@@ -25,5 +42,12 @@ namespace Locker.DomainModel
         public bool IsActive { get; set; }
 
         public virtual LockerBlock LockerBlock { get; set; }
+
+        public void SetArduinoId(string arduinoId)
+        {
+            if (string.IsNullOrWhiteSpace(arduinoId)) { throw new ArgumentNullException(nameof(arduinoId)); }
+
+            this.ArduinoId = arduinoId;
+        }
     }
 }

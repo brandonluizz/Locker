@@ -32,5 +32,13 @@ namespace Locker.Presentation.Controllers
 
             return Json(lockers, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetAllLockerBlocks()
+        {
+            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId);
+
+            return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
+        }
     }
 }

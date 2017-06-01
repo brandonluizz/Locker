@@ -11,8 +11,10 @@ namespace Locker.Infrastructure.Repositories.Interface
     {
         void Add(LockerBlock lockerBlock);
 
-        IList<LockerBlock> GetAll();
+        IList<LockerBlock> GetAll(int traderId);
 
-        LockerBlock GetById(int lockerBlockId, int traderId);        
+        LockerBlock GetById(int lockerBlockId, int traderId);
+
+        LockerBlock GetLastLockerBlocker();
     }
 }

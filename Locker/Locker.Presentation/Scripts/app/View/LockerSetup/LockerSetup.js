@@ -9,7 +9,6 @@
         self.SelectedSectorLocation = ko.observable();
         self.NewSectorAddedWithSuccess = ko.observable(false);
         self.NewSectorAddedWithError = ko.observable(false);
-        self.Lockers = ko.observableArray();
         self.HaveBlankFields = ko.observable(false);
 
         self.SectorSubmit = function (formElement) {
@@ -42,22 +41,7 @@
             self.NewSectorAddedWithSuccess(false);
             self.NewSectorAddedWithError(false);
         }
-
-        function GetAllLockers() {
-            $.ajax({
-                type: 'GET',
-                url: '/LockerSetup/GetAllLockers/',
-                success: function (data) {
-                    if (data) {
-                        var response = $.parseJSON(JSON.stringify(data));
-
-                        self.Lockers(response);
-                        console.log(self.Lockers());
-                    }
-                }
-            });
-        }
-
+        
         function GetSectorLocations() {
             $.ajax({
                 type: 'GET',
@@ -79,7 +63,11 @@
 
         function SubmittedWithSuccess(data) {
             if (data.Success) {
-                self.NewSectorAddedWithSuccess(true);
+                iziToast.success({
+                    title: 'Sucesso!',
+                    message: 'O setor foi adicionado!',
+                    position: 'topRight'
+                });
             } else {
                 self.NewSectorAddedWithError(true);
             }
@@ -87,7 +75,6 @@
 
         self.InitializeComponent = function () {
             GetSectorLocations();
-            GetAllLockers();
         }();
     };
 
@@ -101,7 +88,35 @@
         self.Sectors = ko.observableArray();
         self.SelectedSector = ko.observable('');
         self.Sector = ko.observable('');
+        self.Lockers = ko.observableArray();
+        
 
+        //LockerData
+        self.ArduinoDataErrorMessage = ko.observable(false);
+        self.ArduinoCodeError = ko.observable(false);
+        self.LockerId = ko.observable('');
+        self.NumberOfPositionLocker = ko.observable('');
+        self.HorizontalPositionNumber = ko.observable('');
+        self.VerticalPositionNumber = ko.observable('');
+        self.ArduinoId = ko.observable('');
+        
+        self.AddArduinoCodeToLocker = function (formData) {
+            if (self.ArduinoId() != '') {
+                $.post('/LockerSetup/AddArduinoDataInLocker/', $(formData).serialize(), AddArduinoDataInLockerSuccess, 'json');
+            } else {
+                self.ArduinoDataErrorMessage(true);
+            }
+        }
+
+        self.Teste = function (locker) {
+            self.LockerId(locker.LockerId);
+            self.NumberOfPositionLocker(locker.NumberOfPositionLocker);
+            self.HorizontalPositionNumber(locker.HorizontalPositionNumber);
+            self.VerticalPositionNumber(locker.VerticalPositionNumber);
+            self.ArduinoId(locker.ArduinoId);
+
+            $('#locker-modal').modal('show');
+        }
         self.LockerBlockSubmit = function (formData) {
             if (self.BlockFormIsValid()) {
                 $.post('/LockerSetup/AddNewLockerBlock/', $(formData).serialize(), SubmittedWithSuccess, 'json');
@@ -115,6 +130,20 @@
             return true;
         }
 
+        function GetAllLockers() {
+            $.ajax({
+                type: 'GET',
+                url: '/LockerSetup/GetAllLockers/',
+                success: function (data) {
+                    if (data) {
+                        var response = $.parseJSON(JSON.stringify(data));
+
+                        self.Lockers(response);
+                        console.log(self.Lockers());
+                    }
+                }
+            });
+        }
 
         function GetSectors() {
             $.ajax({
@@ -135,9 +164,29 @@
             });
         };
 
+        function AddArduinoDataInLockerSuccess(data) {
+            if (data.Success) {
+                iziToast.success({
+                    title: 'Sucesso!',
+                    message: 'O Código do Arduino desse armário foi cadastrado!',
+                    position: 'topRight'
+                });
+                self.ArduinoDataErrorMessage(false);
+                GetAllLockers();
+            } else {
+                self.ArduinoCodeError(true);
+            }
+        }
+
         function SubmittedWithSuccess(data) {
             if (data.Success) {
-                self.BlockAddedWithSuccess(true);
+                iziToast.success({
+                    title: 'Sucesso!',
+                    message: 'O bloco de armário foi construido!',
+                    position: 'topRight'
+                });
+                GetAllLockers();
+                document.getElementById("locker-block-form").reset();
             } else {
                 self.BlockError(true);
             }
@@ -145,6 +194,7 @@
 
         self.InitializeComponent = function () {
             GetSectors();
+            GetAllLockers();
         }();
     };
 
@@ -288,7 +338,11 @@
 
         function SectorLocationAddedWithSuccess(data) {
             if (data.Success) {
-                self.AddedWithSuccess(true);
+                iziToast.success({
+                    title: 'Sucesso!',
+                    message: 'A localização foi adicionada!',
+                    position: 'topRight'
+                });
             }
 
         }
@@ -313,7 +367,7 @@
     $('#open-sector-location-modal').click(function () {
         $('#sector-location-modal').modal('show');
     });
-    
+
     var sectorLocation = document.getElementById('sector-location-div');
     ko.applyBindings(new sectorLocationViewModel(), sectorLocation);
 
@@ -321,8 +375,5 @@
     ko.applyBindings(new sectorViewModel(), sectorForm);
 
     var blockForm = document.getElementById('locker-block-div');
-    ko.applyBindings(new blockViewModel(), blockForm);
-
-    var lockerForm = document.getElementById('locker-div');
-    ko.applyBindings(new lockerViewModel(), lockerForm);
+    ko.applyBindings(new blockViewModel(), blockForm);    
 });

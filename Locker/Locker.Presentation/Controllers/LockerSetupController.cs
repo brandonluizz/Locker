@@ -75,7 +75,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockerBlocks()
         {
-            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks();
+            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId);
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
         }
@@ -110,6 +110,13 @@ namespace Locker.Presentation.Controllers
             request.TraderId = this.LoggedUser.TraderId;
 
             var response = this.sectorManagement.AddNewSectorLocation(request);
+
+            return Json(response);
+        }
+
+        public JsonResult AddArduinoDataInLocker(DomainModel.Locker locker)
+        {
+            var response = this.lockerManagement.AddArduinoDataInLocker(locker);
 
             return Json(response);
         }

@@ -57,19 +57,61 @@ namespace Locker.Application
             {
                 this.unitOfWork.LockerBlockRepository.Add(lockerBlock);
 
+                this.SetLockerBlockId(lockerBlock);
+
+                this.AddLockersForBlock(lockerBlock);
+
                 this.unitOfWork.Commit();
 
                 return new LockerManagementResponse(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new LockerManagementResponse(false);
             }
         }
 
-        public IList<LockerBlock> GetAllLockerBlocks()
+        private void SetLockerBlockId(LockerBlock lockerBlock)
         {
-            return this.unitOfWork.LockerBlockRepository.GetAll();
+            var block = this.unitOfWork.LockerBlockRepository.GetLastLockerBlocker();
+            int lockerBlockId = 1;
+
+            if (block != null) { lockerBlockId = block.LockerBlockId + 1; }
+
+            lockerBlock.LockerBlockId = lockerBlockId;
+        }
+
+        private void AddLockersForBlock(LockerBlock lockerBlock)
+        {
+            var lockers = this.GenerateVerticalLockers(lockerBlock);
+
+            this.unitOfWork.LockerRepository.AddRange(lockers);
+        }
+
+        private IList<DomainModel.Locker> GenerateVerticalLockers(LockerBlock lockerBlock)
+        {
+            var lockers = new List<DomainModel.Locker>();
+
+            int lockerPosition = 1;
+
+            for (int verticalPosition = 1; verticalPosition <= lockerBlock.TotalNumberOfVerticalLockers; verticalPosition++)
+            {
+                for (int horizontalPosition = 1; horizontalPosition <= lockerBlock.TotalNumberOfHorizontalLockers; horizontalPosition++)
+                {
+
+                    var locker = new DomainModel.Locker(lockerBlock.LockerBlockId, verticalPosition, horizontalPosition, lockerPosition);
+                    lockers.Add(locker);
+
+                    lockerPosition++;
+                }
+            }
+
+            return lockers;
+        }
+        
+        public IList<LockerBlock> GetAllLockerBlocks(int traderId)
+        {
+            return this.unitOfWork.LockerBlockRepository.GetAll(traderId);
         }
 
         public IList<DomainModel.Locker> GetAllLockers(int traderId)
@@ -102,6 +144,24 @@ namespace Locker.Application
             int totalUsed = lockers.Count;
 
             return limit > totalUsed;
+        }
+
+        public LockerManagementResponse AddArduinoDataInLocker(DomainModel.Locker locker)
+        {
+            try
+            {
+                var entityLocker = this.unitOfWork.LockerRepository.GetById(locker.LockerId);
+
+                entityLocker.SetArduinoId(locker.ArduinoId);
+
+                this.unitOfWork.Commit();
+
+                return new LockerManagementResponse(true);
+            }
+            catch (Exception)
+            {
+                return new LockerManagementResponse(false);
+            }
         }
     }
 }
