@@ -10,5 +10,7 @@ namespace Locker.Application.Interfaces
     public interface ILockerReport
     {
         IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId);
+
+        IList<UsingOfLockerReport> GetUsingLockerReport(int traderId);
     }
 }

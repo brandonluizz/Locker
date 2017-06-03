@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Relatório - Utilização de Armários";
+}
+
+<h3>Relatório de Utilização de Armários</h3>
+<hr />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Relatório
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Localização do Setor</th>
+                    <th>Setor</th>
+                    <th>Total Unidades</th>
+                    <th>Qtde Armários Utilizados</th>
+                    <th>% de Utilização</th>
+
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Report">
+                <tr>
+                    <td data-bind="text: FormattedDate"></td>
+                    <td data-bind="text: SectorLocationName"></td>
+                    <td data-bind="text: SectorName"></td>
+                    <td data-bind="text: TotalNumberOfLockers"></td>
+                    <td data-bind="text: TotalLockersOfUsing"></td>
+                    <td data-bind="text: FormattedPercentageOfUse"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewModel = function () {
+            var self = this;
+
+            self.Report = ko.observableArray();
+
+            function GetReport() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/LockerReport/GetUsingOfLockerReport/',
+                    success: function (data) {
+                        if (data) {
+                            var response = $.parseJSON(JSON.stringify(data));
+                            self.Report(response);
+                            console.log(response);
+                        }
+                    }
+                });
+            }
+
+
+            self.InitializeComponent = function () {
+                GetReport();
+            }();
+        }
+
+        ko.applyBindings(new viewModel());
+    });
+
+</script>

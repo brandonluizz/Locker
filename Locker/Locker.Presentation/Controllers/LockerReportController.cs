@@ -39,5 +39,21 @@ namespace Locker.Presentation.Controllers
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet, Route("relatorio/utilizacao-de-armarios")]
+        public ActionResult UsingOfLockerReport()
+        {
+            if (this.LoggedUser == null) { return RedirectToAction("Index", "Home"); }
+
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetUsingOfLockerReport()
+        {
+            var response = this.report.GetUsingLockerReport(this.LoggedUser.TraderId);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
     }
 }

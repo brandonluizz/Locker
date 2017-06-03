@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Locker.DomainModel.DTO.Reports;
 using Locker.Infrastructure.EntityFramework;
+using System.Data.SqlClient;
 
 namespace Locker.Infrastructure.Repositories
 {
@@ -20,7 +21,7 @@ namespace Locker.Infrastructure.Repositories
 
         public IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId)
         {
-            string query = @"SELECT		ca.[CustomerActivityId],
+            string query = $@"SELECT		ca.[CustomerActivityId],
 			                            ca.[LockerId],
 			                            l.[NumberOfPositionLocker],
 			                            ca.[CustomerId],
@@ -39,9 +40,36 @@ namespace Locker.Infrastructure.Repositories
 			                            INNER JOIN [dbo].[Sector] AS s
 			                            ON lb.[SectorId] = s.[SectorId]
 			                            INNER JOIN [dbo].[SectorLocation] AS sl
-			                            ON s.[SectorLocationId] = sl.[SectorLocationId]";
+			                            ON s.[SectorLocationId] = sl.[SectorLocationId]
+                                        WHERE s.TraderId = {traderId}";
             
             return this.context.Database.SqlQuery<RentalCustomerReport>(query).ToList();
+        }
+
+        public IList<UsingOfLockerReport> GetUseOfLockerReport(int traderId)
+        {
+            var query = $@"SELECT ca.[InitialRentalDate] as Date,
+                            sl.[SectorLocationName],
+                            s.[SectorName],
+                            lb.[TotalNumberOfLockers],
+                            count( 1 ) as 'TotalLockersOfUsing',
+                            PercentageOfUse = ((count(1)*100)/lb.[TotalNumberOfLockers])
+	                            FROM [dbo].[CustomerActivity] AS ca
+		                            INNER JOIN [dbo].[Locker] AS l
+		                            ON ca.[LockerId] = l.[LockerId]
+		                            INNER JOIN [dbo].[LockerBlock] AS lb
+		                            ON l.[LockerBlockId] = lb.[LockerBlockId]
+		                            INNER JOIN [dbo].[Sector] AS s
+		                            ON lb.[SectorId] = s.[SectorId]
+		                            INNER JOIN [dbo].[SectorLocation] AS sl
+		                            ON s.[SectorLocationId] = sl.[SectorLocationId]
+		                            WHERE s.TraderId = {traderId}
+	                            group by ca.[InitialRentalDate],
+			                            lb.[TotalNumberOfLockers],
+			                            sl.[SectorLocationName],
+			                            s.[SectorName]";
+
+            return this.context.Database.SqlQuery<UsingOfLockerReport>(query).ToList();
         }
     }
 }

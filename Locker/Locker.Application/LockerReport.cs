@@ -22,5 +22,10 @@ namespace Locker.Application
         {
             return this.unitOfWork.ReportRepository.GetRentalByCustomerReport(traderId);
         }
+
+        public IList<UsingOfLockerReport> GetUsingLockerReport(int traderId)
+        {
+            return this.unitOfWork.ReportRepository.GetUseOfLockerReport(traderId);
+        }
     }
 }
