@@ -193,7 +193,9 @@ namespace Locker.Application
 
                 if (lockerOfActualBlock.Count == default(int)) { continue; }
 
-                var blockWithLocker = new LockerBlockWithLockers(lockerOfActualBlock, block.LockerBlockId);
+                string sectorName = block.Sector.SectorName;
+
+                var blockWithLocker = new LockerBlockWithLockers(lockerOfActualBlock, block.LockerBlockId, sectorName);
 
                 blockWithLockers.Add(blockWithLocker);
             }

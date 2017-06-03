@@ -209,6 +209,8 @@
     <Content Include="Content\Images\blocker-logo.png" />
     <Content Include="Content\Images\blocker-logo2.png" />
     <Content Include="Content\Images\lockerLoading.gif" />
+    <Content Include="Content\Images\logo-horizontal.png" />
+    <Content Include="Content\Images\logo-simples.png" />
     <Content Include="Content\login-style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

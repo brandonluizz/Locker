@@ -22,32 +22,11 @@
 </style>
 <h3>Painel de Armários</h3>
 <hr />
-@*<div data-bind="foreach: Lockers">
-    <div class="col-md-4">
-        <div class="panel" data-bind="css: { panelSuccess: IsUsing == false, 
-             greenBorder: IsUsing == false, 
-             panelDanger: IsUsing, 
-             redBorder: IsUsing }">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Armário <span data-bind="text: NumberOfPositionLocker"></span> -
-                    <span class="label label-success" data-bind="visible: IsUsing == false">Disponível</span>
-                    <span class="label label-danger" data-bind="visible: IsUsing">Em Uso</span>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <button class="btn btn-info" data-bind="visible: IsUsing == false" disabled>Abrir armário</button>
-                <button class="btn btn-info" data-bind="visible: IsUsing">Abrir armário</button>
-            </div>
-        </div>
-    </div>    
-</div>*@
-
 <div data-bind="foreach: Blocks">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                Bloco Id <span data-bind="text: LockerBlockId"></span>
+             <span data-bind="text: SectorName"></span> - Bloco Id: <span data-bind="text: LockerBlockId"></span>
             </h3>
         </div>
        <div class="panel-body"  data-bind="foreach: Lockers">
