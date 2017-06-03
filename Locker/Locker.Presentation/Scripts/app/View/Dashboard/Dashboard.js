@@ -2,48 +2,23 @@
     var dashboardViewModel = function () {
         var self = this;
 
-        self.Lockers = ko.observableArray();
-        self.Teste = ko.observable(true);
+        self.Blocks = ko.observableArray();
 
         function GetAllLockers() {
-
             $.ajax({
                 type: 'GET',
-                url: '/Dashboard/GetAllLockerBlocks/',
-                success: function (responseLockerBlock) {
-                    if (responseLockerBlock) {
-                        debugger;
-                        var lockerBlocks = $.parseJSON(JSON.stringify(responseLockerBlock));
-                        $.ajax({
-                            type: 'GET',
-                            url: '/Dashboard/GetAllLockers/',
-                            success: function (responseLocker) {
-                                if (responseLocker) {
-                                    debugger;
-                                    var lockers = $.parseJSON(JSON.stringify(responseLocker));
-                                    GenerateLockersWithLockerBlock(lockerBlocks, lockers);
-                                    self.Lockers(lockers);
-                                    console.log(self.Lockers());
-                                }
-                            }
-                        });
+                url: '/Dashboard/GetAllLockerByLockerBlocks/',
+                success: function (data) {
+                    if (data) {
+                        var response = $.parseJSON(JSON.stringify(data));
+                        self.Blocks(response);
+                        //console.log(self.Blocks());
                     }
                 }
             });
         }
 
-        function GenerateLockersWithLockerBlock(lockerBlocks, lockers) {
-            var teste = [{
-
-            }];
-            for (var index = 0; index < lockerBlocks.length; index++) {
-
-                for (var i = 0; i < lockers.length; i++) {
-                    lockerBlocks[index].Lockers.push(lockers[i]);
-                }
-            }
-        }
-
+        setInterval(GetAllLockers, 60000);
 
         self.InitializeComponent = function () {
             GetAllLockers();

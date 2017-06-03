@@ -23,5 +23,7 @@ namespace Locker.Application.Interfaces
         LockerManagementResponse IsAvailableLockerPosition(LockerPosition lockerPosition, int traderId);
 
         LockerManagementResponse AddArduinoDataInLocker(DomainModel.Locker locker);
+
+        IList<LockerBlockWithLockers> GetAllLockersByLockerBlocks(int traderId);
     }
 }

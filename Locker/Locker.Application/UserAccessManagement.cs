@@ -31,7 +31,7 @@ namespace Locker.Application
 
                 return new UserAccessResponse(user, true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new UserAccessResponse(false);
             }            

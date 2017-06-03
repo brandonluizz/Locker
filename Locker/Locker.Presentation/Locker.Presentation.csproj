@@ -194,6 +194,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LockerReportController.cs" />
     <Compile Include="Controllers\LockerSetupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +225,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="node_modules\datatables.net-dt\css\jquery.dataTables.css" />
+    <Content Include="node_modules\datatables.net-dt\images\sort_asc.png" />
+    <Content Include="node_modules\datatables.net-dt\images\sort_asc_disabled.png" />
+    <Content Include="node_modules\datatables.net-dt\images\sort_both.png" />
+    <Content Include="node_modules\datatables.net-dt\images\sort_desc.png" />
+    <Content Include="node_modules\datatables.net-dt\images\sort_desc_disabled.png" />
+    <Content Include="node_modules\datatables.net\js\jquery.dataTables.js" />
     <Content Include="node_modules\izitoast\dist\css\iziToast.css" />
     <Content Include="node_modules\izitoast\dist\css\iziToast.min.css" />
     <Content Include="node_modules\izitoast\dist\js\iziToast.js" />
@@ -244,6 +252,11 @@
     <Content Include="node_modules\izitoast\src\css\style.styl" />
     <Content Include="node_modules\izitoast\src\css\themes.styl" />
     <Content Include="node_modules\izitoast\src\css\toast.styl" />
+    <Content Include="Views\Shared\_LayoutDashboard.cshtml" />
+    <Content Include="node_modules\datatables.net\package.json" />
+    <Content Include="node_modules\datatables.net-dt\package.json" />
+    <Content Include="Views\LockerReport\Index.cshtml" />
+    <Content Include="Views\LockerReport\RentalByCustomerReport.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

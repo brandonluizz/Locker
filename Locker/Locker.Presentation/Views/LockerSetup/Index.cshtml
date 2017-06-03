@@ -122,7 +122,7 @@
                         <td data-bind="text: LockerBlockId"></td>
                         <td data-bind="text: VerticalPositionNumber"></td>
                         <td data-bind="text: HorizontalPositionNumber"></td>
-                        <td><a class="btn btn-warning" type="button" data-bind="click: $parent.Teste">Editar</a></td>
+                        <td><a class="btn btn-warning" data-bind="click: $parent.EditLocker">Editar</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -141,17 +141,17 @@
                 <form data-bind="submit: LockerBlockSubmit" id="locker-block-form">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="sector-name" class="form-control-label">Qtde de Armários Verticais:</label>
+                            <label for="sector-name" class="form-control-label">Qtde de Armários Verticais: *</label>
                             <input type="text" class="form-control" placeholder="Armários Verticais"
                                    name="TotalNumberOfVerticalLockers" data-bind="value: TotalNumberOfVerticalLockers">
                         </div>
                         <div class="form-group">
-                            <label for="sector-name" class="form-control-label">Qtde de Armários Horizontais:</label>
+                            <label for="sector-name" class="form-control-label">Qtde de Armários Horizontais: *</label>
                             <input type="text" class="form-control" placeholder="Armários Horizontais"
                                    name="TotalNumberOfHorizontalLockers" data-bind="value: TotalNumberOfHorizontalLockers">
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Setor:</label>
+                            <label class="control-label">Setor: *</label>
                             <select type="text" name="SectorId" class="form-control"
                                     data-bind="options: Sectors,
                                       optionsText:'description',
@@ -165,6 +165,9 @@
                         </div>
                         <div class="alert alert-info" role="alert">
                             <strong>Todos os armários desse bloco serão cadastrados automaticamente</strong>
+                        </div>
+                        <div class="alert alert-warning" role="alert" data-bind="visible: IsHaveBlankField">
+                            <strong>Por favor, preencha todos os campos obrigatórios (*)</strong>
                         </div>
                     </div>
                     <div class="modal-footer">

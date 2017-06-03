@@ -89,7 +89,7 @@
         self.SelectedSector = ko.observable('');
         self.Sector = ko.observable('');
         self.Lockers = ko.observableArray();
-        
+        self.IsHaveBlankField = ko.observable(false);
 
         //LockerData
         self.ArduinoDataErrorMessage = ko.observable(false);
@@ -108,7 +108,7 @@
             }
         }
 
-        self.Teste = function (locker) {
+        self.EditLocker = function (locker) {
             self.LockerId(locker.LockerId);
             self.NumberOfPositionLocker(locker.NumberOfPositionLocker);
             self.HorizontalPositionNumber(locker.HorizontalPositionNumber);
@@ -117,6 +117,7 @@
 
             $('#locker-modal').modal('show');
         }
+
         self.LockerBlockSubmit = function (formData) {
             if (self.BlockFormIsValid()) {
                 $.post('/LockerSetup/AddNewLockerBlock/', $(formData).serialize(), SubmittedWithSuccess, 'json');
@@ -124,9 +125,22 @@
         }
 
         self.BlockFormIsValid = function () {
-            if (self.TotalNumberOfVerticalLockers === '') { return false; }
-            if (self.TotalNumberOfHorizontalLockers === '') { return false; }
+            if (self.TotalNumberOfVerticalLockers() === '') {
+                self.IsHaveBlankField(true);
+                return false;
+            }
 
+            if (self.TotalNumberOfHorizontalLockers() === '') {
+                self.IsHaveBlankField(true);
+                return false;
+            }
+
+            if (self.TotalNumberOfHorizontalLockers() === '') {
+                self.IsHaveBlankField(true);
+                return false;
+            }
+
+            self.IsHaveBlankField(false);
             return true;
         }
 
@@ -220,7 +234,6 @@
         }
 
         function IsValidForm() {
-            debugger;
             if (self.VerticalPositionNumber() === '') { self.HaveBlankFields(true); return false; }
             if (self.HorizontalPositionNumber() === '') { self.HaveBlankFields(true); return false; }
             if ($('#LockerBlock').val() === '') { self.HaveBlankFields(true); return false; }
@@ -237,7 +250,6 @@
                 url: '/LockerSetup/IsAvailableLockerBlock/',
                 success: function (data) {
                     if (data) {
-                        debugger
                         var response = $.parseJSON(JSON.stringify(data));
 
                         self.IsUnavailableLockerBlock(data.Success == false);
@@ -256,7 +268,6 @@
                                 url: '/LockerSetup/IsAvailableLockerPosition/',
                                 success: function (data) {
                                     if (data) {
-                                        debugger
                                         var response = $.parseJSON(JSON.stringify(data));
 
                                         if (data.Success) {
@@ -326,7 +337,6 @@
         }
 
         self.IsValidForm = function () {
-            debugger;
             if (self.SectorLocationName() === '') {
                 self.IsHaveBlankFields(true);
                 return false;

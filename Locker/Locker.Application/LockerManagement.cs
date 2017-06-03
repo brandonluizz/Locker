@@ -108,7 +108,7 @@ namespace Locker.Application
 
             return lockers;
         }
-        
+
         public IList<LockerBlock> GetAllLockerBlocks(int traderId)
         {
             return this.unitOfWork.LockerBlockRepository.GetAll(traderId);
@@ -162,6 +162,43 @@ namespace Locker.Application
             {
                 return new LockerManagementResponse(false);
             }
+        }
+
+        public IList<LockerBlockWithLockers> GetAllLockersByLockerBlocks(int traderId)
+        {
+            try
+            {
+                var blocks = this.unitOfWork.LockerBlockRepository.GetAll(traderId);
+
+                var lockers = this.unitOfWork.LockerRepository.GetAll(traderId);
+
+                var blockWithLockers = this.GenerateBlockWithLockers(blocks, lockers);
+
+                return blockWithLockers;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private IList<LockerBlockWithLockers> GenerateBlockWithLockers(IList<LockerBlock> blocks, IList<DomainModel.Locker> lockers)
+        {
+            var blockWithLockers = new List<LockerBlockWithLockers>();
+
+            foreach (var block in blocks)
+            {
+                var lockerOfActualBlock = lockers.Where(l => l.LockerBlockId == block.LockerBlockId).ToList();
+
+                if (lockerOfActualBlock.Count == default(int)) { continue; }
+
+                var blockWithLocker = new LockerBlockWithLockers(lockerOfActualBlock, block.LockerBlockId);
+
+                blockWithLockers.Add(blockWithLocker);
+            }
+
+            return blockWithLockers;
         }
     }
 }

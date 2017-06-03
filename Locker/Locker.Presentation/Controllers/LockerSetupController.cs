@@ -79,7 +79,8 @@ namespace Locker.Presentation.Controllers
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
         }
-
+        
+        
         [HttpGet]
         public JsonResult GetAllLockers()
         {

@@ -24,6 +24,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 
         ITraderRepository TraderRepository { get; }
 
+        ILockerReportRepository ReportRepository { get; }
+
         void Dispose();
 
         void Commit();

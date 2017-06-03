@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Relatório - Locação Por Cliente";
+}
+
+<h3>Relatório de Locação Por Cliente</h3>
+<hr />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Relatório
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Armário</th>
+                    <th>Número Armário</th>
+                    <th>Cliente</th>
+                    <th>Nome do Cliente</th>
+                    <th>Setor</th>
+                    <th>Localização</th>
+                    <th>Data Locação</th>
+                    <th>Data Devolução</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: RentalByCustomerReport">
+                <tr>
+                    <td data-bind="text: CustomerActivityId"></td>
+                    <td data-bind="text: LockerId"></td>
+                    <td data-bind="text: NumberOfPositionLocker"></td>
+                    <td data-bind="text: CustomerId"></td>
+                    <td data-bind="text: CustomerName"></td>
+                    <td data-bind="text: SectorName"></td>
+                    <td data-bind="text: SectorLocationName"></td>
+                    <td data-bind="text: FormattedInitialRentalDate"></td>
+                    <td data-bind="text: FormattedFinalRentalDate"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewModel = function () {
+            var self = this;
+
+            self.RentalByCustomerReport = ko.observableArray();
+
+            function GetReport() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/LockerReport/GetRentalByCustomerReport/',
+                    success: function (data) {
+                        if (data) {
+                            var response = $.parseJSON(JSON.stringify(data));
+                            self.RentalByCustomerReport(response);
+                            console.log(response);
+                        }
+                    }
+                });
+            }
+
+
+            self.InitializeComponent = function () {
+                GetReport();
+            }();
+        }
+
+        ko.applyBindings(new viewModel());
+        //window.allSalesByCheckout = $('#allActivitiesOfCustomers').DataTable({
+        //    responsive: true,
+        //    columnDefs: [
+        //        {
+        //            responsivePriority: 1,
+        //            targets: 0
+        //        },
+        //        {
+        //            responsivePriority: 2,
+        //            targets: -2
+        //        }
+        //    ],
+        //    "processing": true,
+        //    "serverSide": false,
+        //    "ajax": {
+        //        type: 'GET',
+        //        url: '/LockerReport/GetRentalByCustomerReport/',
+        //        cache: false,
+        //        dataSrc: function (data) {
+        //            try {
+        //                return data;
+        //            } catch (e) {
+        //                return false;
+        //            }
+        //        }
+        //    },
+        //    "destroy": true,
+        //    "pageLength": 10,
+        //    "lengthChange": true,
+        //    "retrieve": true,
+        //    "searching": true,
+        //    "columns": [
+        //        {
+        //            "data": "CustomerActivityId",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "LockerId",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "NumberOfPositionLocker",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "CustomerId",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "CustomerName",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "SectorName",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "SectorLocationName",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "InitialRentalDate",
+        //            bSortable: true
+        //        },
+        //        {
+        //            "data": "FinalRentalDate",
+        //            bSortable: true
+        //        }
+        //    ],
+        //    "language": {
+        //        "lengthMenu": "Exibir _MENU_ transações",
+        //        "paginate": {
+        //            "first": "Primeira",
+        //            "last": "Última",
+        //            "next": "Próximo",
+        //            "previous": "Anterior"
+        //        },
+        //        "info": "Exibindo _START_ a _END_ de _TOTAL_ Atividades",
+        //        "infoEmpty": "Não houve resultados para sua busca",
+        //        "emptyTable": "Não houve resultados para sua busca",
+        //        "search": "Buscar Atividade:",
+        //        "zeroRecords": "Não foi encontrado nenhum resultado",
+        //        "infoFiltered": "(pesquisado em _MAX_ atividades dos últimos 7 dias)"
+        //    },
+        //    "order": [[1, 'asc']]
+        //});
+    });
+</script>

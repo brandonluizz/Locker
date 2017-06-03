@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Locker.Infrastructure.Repositories.Interface;
 using Locker.Application.Interfaces;
+using Newtonsoft.Json;
 
 namespace Locker.Presentation.Controllers
 {
@@ -39,6 +40,14 @@ namespace Locker.Presentation.Controllers
             var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId);
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAllLockerByLockerBlocks()
+        {
+            var blocksWithLockers = lockerManagement.GetAllLockersByLockerBlocks(this.LoggedUser.TraderId);
+
+            return Json(blocksWithLockers, JsonRequestBehavior.AllowGet);
         }
     }
 }

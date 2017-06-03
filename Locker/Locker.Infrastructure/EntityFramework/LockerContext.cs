@@ -1,4 +1,5 @@
 ﻿using Locker.DomainModel;
+using Locker.DomainModel.DTO.Reports;
 using Locker.DomainModel.Model;
 using System;
 using System.Collections.Generic;

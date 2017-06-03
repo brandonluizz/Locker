@@ -71,6 +71,7 @@ namespace Locker.Presentation.App_Start
             kernel.Bind<IUserAccessManagement>().To<UserAccessManagement>();
             kernel.Bind<ISectorManagement>().To<SectorManagement>();
             kernel.Bind<ILockerManagement>().To<LockerManagement>();
+            kernel.Bind<ILockerReport>().To<LockerReport>();
         }        
     }
 }

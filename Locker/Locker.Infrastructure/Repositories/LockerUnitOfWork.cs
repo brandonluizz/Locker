@@ -137,6 +137,21 @@ namespace Locker.Infrastructure.Repositories
             }
         }
 
+        private LockerReportRepository reportRepository;
+
+        public ILockerReportRepository ReportRepository
+        {
+            get
+            {
+                if (this.reportRepository == null)
+                {
+                    this.reportRepository = new LockerReportRepository(this.context);
+                }
+
+                return reportRepository;
+            }
+        }
+
         public void Commit()
         {
             this.context.SaveChanges();
