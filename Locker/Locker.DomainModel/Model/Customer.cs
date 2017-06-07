@@ -8,13 +8,10 @@ namespace Locker.DomainModel
     [Table("Customer")]
     public class Customer
     {
-        public Customer(string customerName, DateTime birthDate, DateTime expirationDate, string tagUID)
+        public Customer()
         {
-            this.CustomerName = customerName;
-            this.BirthDate = birthDate;
-            this.ExpirationDate = expirationDate;
             this.RegistrationDate = DateTime.Now;
-            this.TagUID = tagUID;
+            this.ExpirationDate = DateTime.Now.AddYears(2);
         }
 
         [Key]
@@ -24,6 +21,8 @@ namespace Locker.DomainModel
         public int TraderId { get; set; }
 
         public string CustomerName { get; set; }
+
+        public string CustomerCpf { get; set; }
 
         public DateTime BirthDate { get; set; }
 

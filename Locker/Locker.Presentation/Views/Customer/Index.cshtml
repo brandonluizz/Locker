@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h3>Clientes</h3>
+<hr />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Configurações</h3>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-primary open-new-customer-modal">Novo Cliente</a>
+        
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="new-customer-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Adicionar Novo Cliente</h4>
+            </div>
+            <form data-bind="submit: NewCustomerSubmit">
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <label for="sector-name" class="col-2 col-form-label">Nome: *</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" placeholder="Nome" name="CustomerName" data-bind="value: CustomerName">
+                        </div>
+                    </div>
+           
+                    <div class="form-group">
+                        <label for="sector-name" class="col-2 col-form-label">Cpf: *</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control"  placeholder="Cpf" name="CustomerCpf" data-bind="value: CustomerCpf">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector-name" class="col-2 col-form-label">Data de nascimento: *</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control"  placeholder="Data de Nascimento" name="BirthDate" data-bind="value: BirthDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector-name" class="col-2 col-form-label">Id da Pulseira:</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" placeholder="Id da Pulseira" name="TagUID" data-bind="value: TagUID">
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert" data-bind="visible: Error">
+                        <strong>Ocorreu um erro ao adicionar o cliente, por favor tente novamente!</strong>
+                    </div>
+                    <div class="alert alert-warning" role="alert" data-bind="visible: HaveABlankFields">
+                        <strong>Por favor, preencha todos os campos obrigatórios!</strong>
+                    </div>
+                    <div class="alert alert-warning" role="alert" data-bind="visible: AlreadyExistsThisCustomer">
+                        <strong>já existe um cliente com este CPF!</strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.open-new-customer-modal').click(function () {
+            $('#new-customer-modal').modal('show');
+        });
+
+        var newCustomerViewModel = function () {
+            var self = this;
+
+            self.CustomerName = ko.observable('');
+            self.CustomerCpf = ko.observable('');
+            self.BirthDate = ko.observable('');
+            self.TagUID = ko.observable('');
+            self.HaveABlankFields = ko.observable(false);
+            self.Error = ko.observable(false);
+            self.AlreadyExistsThisCustomer = ko.observable(false);
+
+            self.NewCustomerSubmit = function (formElement) {
+                debugger;
+                if (self.NewCustomerFormIsValid()) {
+                    $.post('/Customer/AddNewCustomer/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
+                }                
+            }
+
+            self.CpfIsChange = function () {
+                $.post('/Customer/AddNewCustomer/', $(formElement).serialize(), SubmittedWithSuccess, 'json');
+            }
+
+            self.NewCustomerFormIsValid = function () {
+                if (self.CustomerName() === '') {
+                    self.HaveABlankFields(true);
+                    return false;
+                }
+
+                if (self.CustomerCpf() === '') {
+                    self.HaveABlankFields(true);
+                    return false;
+                }
+
+                if (self.BirthDate() === '') {
+                    self.HaveABlankFields(true);
+                    return false;
+                }
+
+                if (self.TagUID === '') {
+                    self.HaveABlankFields(true);
+                    return false;
+                }
+
+                if (self.AlreadyExistsThisCustomer() === true) {
+                    return false;
+                }
+
+                self.HaveABlankFields(false);
+                return true;
+            }
+
+            function SubmittedWithSuccess(data) {
+                if (data.Success) {
+
+                } else {
+                    self.Error(true);
+                }
+            }
+
+        }
+
+       
+
+        var newCustomerModal = document.getElementById('new-customer-modal');
+        ko.applyBindings(new newCustomerViewModel(), newCustomerModal);
+    });
+</script>

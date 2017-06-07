@@ -24,5 +24,12 @@ namespace Locker.Infrastructure.Repositories
 
             this.dbSet.Add(customer);
         }
+
+        public Customer GetByCpf(string cpf)
+        {
+            if (string.IsNullOrWhiteSpace(cpf)) { throw new ArgumentNullException(nameof(cpf)); }
+
+            return this.dbSet.FirstOrDefault(c => c.CustomerCpf == cpf);
+        }
     }
 }

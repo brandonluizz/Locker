@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CustomerManagementResponse.cs" />
     <Compile Include="DTO\LockerBlockWithLockers.cs" />
     <Compile Include="DTO\LockerManagementResponse.cs" />
     <Compile Include="DTO\LockerPosition.cs" />

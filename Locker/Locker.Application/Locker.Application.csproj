@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerManagement.cs" />
+    <Compile Include="Interfaces\ICustomerManagement.cs" />
     <Compile Include="Interfaces\ILockerManagement.cs" />
     <Compile Include="Interfaces\ILockerReport.cs" />
     <Compile Include="Interfaces\IUserAccessManagement.cs" />

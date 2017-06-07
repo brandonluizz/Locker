@@ -10,5 +10,7 @@ namespace Locker.Infrastructure.Repositories.Interface
     public interface ICustomerRepository
     {
         void Add(Customer customer);
+
+        Customer GetByCpf(string cpf);
     }
 }
