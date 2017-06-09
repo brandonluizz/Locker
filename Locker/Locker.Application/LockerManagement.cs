@@ -193,14 +193,34 @@ namespace Locker.Application
 
                 if (lockerOfActualBlock.Count == default(int)) { continue; }
 
+                var lockersWithActivities = this.GetLockerWithActivities(block, lockerOfActualBlock);
+              
                 string sectorName = block.Sector.SectorName;
 
-                var blockWithLocker = new LockerBlockWithLockers(lockerOfActualBlock, block.LockerBlockId, sectorName);
+                var blockWithLocker = new LockerBlockWithLockers(lockersWithActivities, block.LockerBlockId, sectorName);
 
                 blockWithLockers.Add(blockWithLocker);
             }
 
             return blockWithLockers.AsEnumerable();
+        }
+
+        private IEnumerable<LockerWithCustomerActivity> GetLockerWithActivities(LockerBlock block, List<DomainModel.Locker> lockerOfActualBlock)
+        {
+            var lockersWithActivities = new List<LockerWithCustomerActivity>();
+
+            var customerActivities = this.unitOfWork.CustomerActivityRepository.GetAll(block.Sector.TraderId);
+
+            foreach (var locker in lockerOfActualBlock)
+            {
+                var customerActivity = customerActivities.Where(c => c.LockerId == locker.LockerId).FirstOrDefault();
+
+                var lockersWithActivity = new LockerWithCustomerActivity(locker, customerActivity);
+
+                lockersWithActivities.Add(lockersWithActivity);
+            }
+
+            return lockersWithActivities.AsEnumerable();
         }
     }
 }

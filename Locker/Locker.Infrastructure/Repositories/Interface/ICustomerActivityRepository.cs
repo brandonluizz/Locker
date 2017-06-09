@@ -10,5 +10,7 @@ namespace Locker.Infrastructure.Repositories.Interface
     public interface ICustomerActivityRepository
     {
         void Remove(Customer customer);
+
+        IEnumerable<CustomerActivity> GetAll(int traderId);
     }
 }

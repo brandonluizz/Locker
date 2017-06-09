@@ -18,6 +18,11 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
         }
 
+        public IEnumerable<CustomerActivity> GetAll(int traderId)
+        {
+            return this.dbSet.Where(c => c.Customer.TraderId == traderId).ToList();
+        }
+
         public void Remove(Customer customer)
         {
             var activities = this.GetAllByCustomer(customer);

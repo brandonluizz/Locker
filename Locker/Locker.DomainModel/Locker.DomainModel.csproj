@@ -48,6 +48,7 @@
     <Compile Include="DTO\LockerBlockWithLockers.cs" />
     <Compile Include="DTO\LockerManagementResponse.cs" />
     <Compile Include="DTO\LockerPosition.cs" />
+    <Compile Include="DTO\LockerWithCustomerActivity.cs" />
     <Compile Include="DTO\Reports\RentalCustomerReport.cs" />
     <Compile Include="DTO\Reports\UsingOfLockerReport.cs" />
     <Compile Include="DTO\SectorManagementResponse.cs" />

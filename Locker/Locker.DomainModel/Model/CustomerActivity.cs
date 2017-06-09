@@ -18,7 +18,25 @@ namespace Locker.DomainModel
 
         public DateTime InitialRentalDate { get; set; }
 
-        public DateTime FInalRentalDate { get; set; }
+        public DateTime? FinalRentalDate { get; set; }
+
+        public string FormattedInitialRentalDate
+        {
+            get
+            {
+                return this.InitialRentalDate.ToString("dd-MM-yyyy HH:mm:ss");
+            }
+        }
+
+        public string FormattedFinalRentalDate
+        {
+            get
+            {
+                if (this.FinalRentalDate == null) { return string.Empty; }
+
+                return this.FinalRentalDate.Value.ToString("dd-MM-yyyy HH:mm:ss");
+            }
+        }
 
         public virtual Locker Locker { get; set; }
 
