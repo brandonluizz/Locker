@@ -39,7 +39,33 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult IsAlreadyExistsCustomer(string cpf)
         {
+            cpf = cpf.Replace(".", "");
+
             var response = this.customerManagement.IsAlreadyExistsCustomer(cpf);
+
+            return Json(response);
+        }
+
+        [HttpGet]
+        public JsonResult GetAllCustomer()
+        {
+            var response = this.customerManagement.GetAllCustomer(this.LoggedUser.TraderId);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditCustomer(Customer customer)
+        {
+            var response = this.customerManagement.EditCustomer(customer);
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public JsonResult RemoveCustomer(string cpf)
+        {
+            var response = this.customerManagement.RemoveCustomer(cpf);
 
             return Json(response);
         }

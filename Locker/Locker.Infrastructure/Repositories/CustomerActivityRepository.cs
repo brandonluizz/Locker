@@ -17,5 +17,20 @@ namespace Locker.Infrastructure.Repositories
         {
             this.dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
         }
+
+        public void Remove(Customer customer)
+        {
+            var activities = this.GetAllByCustomer(customer);
+
+            foreach (var activity in activities)
+            {
+                this.dbSet.Remove(activity);
+            }            
+        }
+
+        private IEnumerable<CustomerActivity> GetAllByCustomer(Customer customer)
+        {
+            return this.dbSet.Where(a => a.CustomerId == customer.CustomerId).AsEnumerable();
+        }
     }
 }

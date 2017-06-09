@@ -12,5 +12,9 @@ namespace Locker.Infrastructure.Repositories.Interface
         void Add(Customer customer);
 
         Customer GetByCpf(string cpf);
+
+        IEnumerable<Customer> GetAllCustomers(int traderId);
+
+        void Remove(Customer customer);
     }
 }

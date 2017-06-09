@@ -9,8 +9,8 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ILockerReportRepository
     {
-        IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId);
+        IEnumerable<RentalCustomerReport> GetRentalByCustomerReport(int traderId);
 
-        IList<UsingOfLockerReport> GetUseOfLockerReport(int traderId);
+        IEnumerable<UsingOfLockerReport> GetUseOfLockerReport(int traderId);
     }
 }

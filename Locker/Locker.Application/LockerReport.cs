@@ -18,12 +18,12 @@ namespace Locker.Application
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException();
         }
 
-        public IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId)
+        public IEnumerable<RentalCustomerReport> GetRentalByCustomerReport(int traderId)
         {
             return this.unitOfWork.ReportRepository.GetRentalByCustomerReport(traderId);
         }
 
-        public IList<UsingOfLockerReport> GetUsingLockerReport(int traderId)
+        public IEnumerable<UsingOfLockerReport> GetUsingLockerReport(int traderId)
         {
             return this.unitOfWork.ReportRepository.GetUseOfLockerReport(traderId);
         }

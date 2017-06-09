@@ -240,12 +240,15 @@
     <Content Include="node_modules\izitoast\dist\js\iziToast.js" />
     <Content Include="node_modules\izitoast\dist\js\iziToast.min.js" />
     <Content Include="Scripts\app\login.js" />
+    <Content Include="Scripts\app\TableFilters.js" />
+    <Content Include="Scripts\app\View\Customer\Customer.js" />
     <Content Include="Scripts\app\View\Dashboard\Dashboard.js" />
     <Content Include="Scripts\app\View\LockerSetup\LockerSetup.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap-notify.min.js" />
     <Content Include="Scripts\DropDown.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\LockerSetup\Index.cshtml" />
     <Content Include="node_modules\izitoast\bower.json" />

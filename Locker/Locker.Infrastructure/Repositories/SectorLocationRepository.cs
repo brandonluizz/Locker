@@ -25,9 +25,9 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet.Add(sectorLocation);
         }
 
-        public IList<SectorLocation> GetSectorLocations(int traderId)
+        public IEnumerable<SectorLocation> GetSectorLocations(int traderId)
         {
-            return this.dbSet.Where(sl => sl.TraderId == traderId).ToList();
+            return this.dbSet.Where(sl => sl.TraderId == traderId).AsEnumerable();
         }
     }
 }

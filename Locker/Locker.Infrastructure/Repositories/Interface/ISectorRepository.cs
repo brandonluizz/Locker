@@ -11,6 +11,6 @@ namespace Locker.Infrastructure.Repositories.Interface
     {
         void Add(Sector sector);
 
-        IList<Sector> GetAll(int traderId);
+        IEnumerable<Sector> GetAll(int traderId);
     }
 }

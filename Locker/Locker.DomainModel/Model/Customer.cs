@@ -28,9 +28,30 @@ namespace Locker.DomainModel
 
         public DateTime RegistrationDate { get; set; }
 
+        public void FormattCpj()
+        {
+            this.CustomerCpf = this.CustomerCpf.Replace(".", "");
+        }
+
         public DateTime ExpirationDate { get; set; }
 
         public string TagUID { get; set; }
+
+        public string FormattedBirthDate
+        {
+            get
+            {
+                return this.BirthDate.ToString("dd-MM-yyyy");
+            }
+        }
+
+        public string FormattedRegistrationDate
+        {
+            get
+            {
+                return this.RegistrationDate.ToString("dd-MM-yyyy HH:mm:ss");
+            }
+        }
 
         public virtual Trader Trader { get; set; }
     }

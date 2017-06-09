@@ -109,12 +109,12 @@ namespace Locker.Application
             return lockers;
         }
 
-        public IList<LockerBlock> GetAllLockerBlocks(int traderId)
+        public IEnumerable<LockerBlock> GetAllLockerBlocks(int traderId)
         {
             return this.unitOfWork.LockerBlockRepository.GetAll(traderId);
         }
 
-        public IList<DomainModel.Locker> GetAllLockers(int traderId)
+        public IEnumerable<DomainModel.Locker> GetAllLockers(int traderId)
         {
             return this.unitOfWork.LockerRepository.GetAll(traderId);
         }
@@ -135,7 +135,7 @@ namespace Locker.Application
             }
         }
 
-        private bool VeriryIfIsAvailableLockerBlock(IList<DomainModel.Locker> lockers)
+        private bool VeriryIfIsAvailableLockerBlock(ICollection<DomainModel.Locker> lockers)
         {
             if (lockers.Count == default(int)) { return true; }
 
@@ -164,7 +164,7 @@ namespace Locker.Application
             }
         }
 
-        public IList<LockerBlockWithLockers> GetAllLockersByLockerBlocks(int traderId)
+        public IEnumerable<LockerBlockWithLockers> GetAllLockersByLockerBlocks(int traderId)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace Locker.Application
             }
         }
 
-        private IList<LockerBlockWithLockers> GenerateBlockWithLockers(IList<LockerBlock> blocks, IList<DomainModel.Locker> lockers)
+        private IEnumerable<LockerBlockWithLockers> GenerateBlockWithLockers(IEnumerable<LockerBlock> blocks, IEnumerable<DomainModel.Locker> lockers)
         {
             var blockWithLockers = new List<LockerBlockWithLockers>();
 
@@ -200,7 +200,7 @@ namespace Locker.Application
                 blockWithLockers.Add(blockWithLocker);
             }
 
-            return blockWithLockers;
+            return blockWithLockers.AsEnumerable();
         }
     }
 }

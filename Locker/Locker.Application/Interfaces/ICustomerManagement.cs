@@ -13,5 +13,11 @@ namespace Locker.Application.Interfaces
         CustomerManagementResponse AddNewCustomer(Customer customer);
 
         bool IsAlreadyExistsCustomer(string cpf);
+
+        IEnumerable<Customer> GetAllCustomer(int traderId);
+
+        CustomerManagementResponse EditCustomer(Customer customer);
+
+        CustomerManagementResponse RemoveCustomer(string cpf);
     }
 }

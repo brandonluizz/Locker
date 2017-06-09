@@ -19,7 +19,7 @@ namespace Locker.Infrastructure.Repositories
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId)
+        public IEnumerable<RentalCustomerReport> GetRentalByCustomerReport(int traderId)
         {
             string query = $@"SELECT		ca.[CustomerActivityId],
 			                            ca.[LockerId],
@@ -43,10 +43,10 @@ namespace Locker.Infrastructure.Repositories
 			                            ON s.[SectorLocationId] = sl.[SectorLocationId]
                                         WHERE s.TraderId = {traderId}";
             
-            return this.context.Database.SqlQuery<RentalCustomerReport>(query).ToList();
+            return this.context.Database.SqlQuery<RentalCustomerReport>(query).AsEnumerable();
         }
 
-        public IList<UsingOfLockerReport> GetUseOfLockerReport(int traderId)
+        public IEnumerable<UsingOfLockerReport> GetUseOfLockerReport(int traderId)
         {
             var query = $@"SELECT ca.[InitialRentalDate] as Date,
                             sl.[SectorLocationName],
@@ -69,7 +69,7 @@ namespace Locker.Infrastructure.Repositories
 			                            sl.[SectorLocationName],
 			                            s.[SectorName]";
 
-            return this.context.Database.SqlQuery<UsingOfLockerReport>(query).ToList();
+            return this.context.Database.SqlQuery<UsingOfLockerReport>(query).AsEnumerable();
         }
     }
 }

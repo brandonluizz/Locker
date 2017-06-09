@@ -25,9 +25,9 @@ namespace Locker.Infrastructure.Repositories
             this.dbSet.Add(lockerBlock);
         }
 
-        public IList<LockerBlock> GetAll(int traderId)
+        public IEnumerable<LockerBlock> GetAll(int traderId)
         {
-            return this.dbSet.Where(l => l.Sector.TraderId == traderId).ToList();
+            return this.dbSet.Where(l => l.Sector.TraderId == traderId).AsEnumerable();
         }
 
         public LockerBlock GetById(int lockerBlockId, int traderId)

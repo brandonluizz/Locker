@@ -12,9 +12,9 @@ namespace Locker.Infrastructure.Repositories.Interface
     {
         void Add(DomainModel.Locker locker);
 
-        IList<DomainModel.Locker> GetAll(int traderId);
+        IEnumerable<DomainModel.Locker> GetAll(int traderId);
 
-        IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId);
+        ICollection<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId);
 
         DomainModel.Locker GetLockersByPosition(LockerPosition lockerPosition, int traderId);
 
