@@ -49,6 +49,11 @@
     </div>
 </div>
 
+<script src="~/Scripts/amcharts/amcharts.js"></script>
+<script src="~/Scripts/amcharts/serial.js"></script>
+<script src="~/Scripts/amcharts/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="~/Scripts/amcharts/plugins/export/export.css" type="text/css" media="all" />
+<script src="~/Scripts/amcharts/themes/light.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -88,6 +93,7 @@
                             var response = $.parseJSON(JSON.stringify(data));
                             self.RentalByCustomerReport(response);
                             console.log(response);
+
                         }
                     }
                 });
