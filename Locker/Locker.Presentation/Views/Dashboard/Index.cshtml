@@ -48,7 +48,7 @@
                        </h3>
                    </div>
                    <div class="panel-body">
-                       <div data-bind="visible: Locker.IsUsing">
+                       <div data-bind="if: Locker.IsUsing">
                            <p>Informações</p>
                            <ul class="list-group">
                                <li class="list-group-item"><strong>Cliente:</strong> <span data-bind="text: CustomerActivity.Customer.CustomerName"></span></li>

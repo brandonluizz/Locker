@@ -24,12 +24,8 @@
         </h3>
     </div>
     <div class="panel-body">
-        <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-            <input type="text" required id="filterD" class="form-control" placeholder="Buscar item na tabela" data-bind="value:filter,valueUpdate: 'keyup'" />
-        </div>
-        <hr />
-        <table class="table table-hover" id="tabela">
+
+        <table class="table table-hover" id="table">
             <thead>
                 <tr>
                     <th>Data/Hora</th>
@@ -38,26 +34,17 @@
                     <th>Total Unidades</th>
                     <th>Qtde Armários Utilizados</th>
                     <th>% de Utilização</th>
-                </tr>         
-            </thead>
-
-            <tbody data-bind="foreach: filteredList">
-                <tr>
-                    <td data-bind="text: FormattedDate"></td>
-                    <td data-bind="text: SectorLocationName"></td>
-                    <td data-bind="text: SectorName"></td>
-                    <td data-bind="text: TotalNumberOfLockers"></td>
-                    <td data-bind="text: TotalLockersOfUsing"></td>
-                    <td data-bind="text: FormattedPercentageOfUse"></td>
                 </tr>
-            </tbody>
-
+            </thead>
         </table>
     </div>
 </div>
 
+<link rel="stylesheet" href="~/node_modules/datatables.net-dt/css/jquery.dataTables.css" type="text/css" />
+<script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
 <script src="~/Scripts/amcharts/amcharts.js"></script>
-<script src="~/Scripts/amcharts/pie.js"></script>
+<script src="~/Scripts/amcharts/lang/pt.js"></script>
+<script src="~/Scripts/amcharts/serial.js"></script>
 <script src="~/Scripts/amcharts/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="~/Scripts/amcharts/plugins/export/export.css" type="text/css" media="all" />
 <script src="~/Scripts/amcharts/themes/light.js"></script>
@@ -67,30 +54,6 @@
         var viewModel = function () {
             var self = this;
 
-            self.Report = ko.observableArray();
-            self.filter = ko.observable();
-
-            self.filteredList = ko.computed(function () {
-                var filter = self.filter(),
-                    arr = [];
-                if (filter) {
-                    ko.utils.arrayForEach(self.Report(), function (item) {
-                        if (item.FormattedDate.toString().toUpperCase() == filter.toString().toUpperCase()
-                            || item.SectorLocationName.toString().toUpperCase() == filter.toString().toUpperCase()
-                            || item.SectorName.toString().toUpperCase() == filter.toString().toUpperCase()
-                            || item.FormattedPercentageOfUse.toString().toUpperCase() == filter.toString().toUpperCase()
-                            || item.TotalNumberOfLockers.toString().toUpperCase() == filter.toString().toUpperCase()
-                            || item.FormattedPercentageOfUse.toString().toUpperCase() == filter.toString().toUpperCase()) {
-
-                            arr.push(item);
-                        }
-                    });
-                } else {
-                    arr = self.Report();
-                }
-                return arr;
-            });
-
             function GetReport() {
                 $.ajax({
                     type: 'GET',
@@ -98,22 +61,74 @@
                     success: function (data) {
                         if (data) {
                             var response = $.parseJSON(JSON.stringify(data));
-                            self.Report(response);
+                          
                             console.log(data);
                             var chart = AmCharts.makeChart("chartdiv", {
-                                "type": "pie",
+                                "type": "serial",
                                 "theme": "light",
+                                "marginRight": 70,
                                 "dataProvider": response,
-                                "valueField": "PercentageOfUse",
-                                "titleField": "FormattedDate",
-                                "balloon": {
-                                    "fixedPosition": true
+                                "valueAxes": [{
+                                    "axisAlpha": 0,
+                                    "position": "left",
+                                    "title": "Porcentagem de Utilização"
+                                }],
+                                "startDuration": 1,
+                                "graphs": [{
+                                    "balloonText": "<b>[[category]]: [[value]]</b>",
+                                    "fillColorsField": "color",
+                                    "fillAlphas": 0.9,
+                                    "lineAlpha": 0.2,
+                                    "type": "column",
+                                    "valueField": "PercentageOfUse"
+                                },
+                                {
+                                    "id": "graph2",
+                                    "balloonText": "<span style='font-size:12px;'>[[title]] em [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+                                    "bullet": "round",
+                                    "lineThickness": 3,
+                                    "bulletSize": 7,
+                                    "bulletBorderAlpha": 1,
+                                    "bulletColor": "#FFFFFF",
+                                    "useLineColorForBulletBorder": true,
+                                    "bulletBorderThickness": 3,
+                                    "fillAlphas": 0,
+                                    "lineAlpha": 1,
+                                    "title": "Total de Unidade de Armário",
+                                    "valueField": "TotalNumberOfLockers",
+                                    "dashLengthField": "dashLengthLine"
+                                }
+                                ],
+                                "chartCursor": {
+                                    "categoryBalloonEnabled": false,
+                                    "cursorAlpha": 0,
+                                    "zoomable": false
+                                },
+                                "categoryField": "SectorName",
+                                "categoryAxis": {
+                                    "gridPosition": "start",
+                                    "labelRotation": 45
                                 },
                                 "export": {
                                     "enabled": true
                                 }
+
                             });
-                           
+
+                            //var chart = AmCharts.makeChart("chartdiv", {
+                            //    "type": "pie",
+                            //    "theme": "light",
+                            //    "dataProvider": response,
+                            //    "valueField": "PercentageOfUse",
+                            //    "titleField": "FormattedDate",
+                            //    "balloon": {
+                            //        "fixedPosition": true
+                            //    },
+                            //    "export": {
+                            //        "enabled": true
+                            //    }
+                            //});
+
                         }
                     }
                 });
@@ -124,6 +139,30 @@
                 GetReport();
             }();
         }
+
+        $('#table').DataTable({
+            "ajax": {
+                url: "/LockerReport/GetUsingOfLockerReport/",
+                type: 'GET',
+                cache: false,
+                dataSrc: function (data) {
+                    try {
+                        debugger;
+                        return data;
+                    } catch (e) {
+                        return false;
+                    }
+                }
+            },
+            "columns": [
+                { "data": "FormattedDate" },
+                { "data": "SectorLocationName" },
+                { "data": "SectorName" },
+                { "data": "TotalNumberOfLockers" },
+                { "data": "TotalLockersOfUsing" },
+                { "data": "FormattedPercentageOfUse" }
+            ]
+        });
 
         ko.applyBindings(new viewModel());
     });

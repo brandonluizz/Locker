@@ -32,7 +32,7 @@ namespace Locker.DomainModel.DTO.Reports
         {
             get
             {
-                return this.Date.ToString("dd-MM-yyyy HH:mm:ss");
+                return this.Date.ToString("dd-MM-yyyy");
             }
         }
     }
