@@ -41,7 +41,7 @@ namespace Locker.DomainModel
         {
             get
             {
-                return this.BirthDate.ToString("dd-MM-yyyy");
+                return this.BirthDate.ToString("dd/MM/yyyy");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Locker.DomainModel
         {
             get
             {
-                return this.RegistrationDate.ToString("dd-MM-yyyy HH:mm:ss");
+                return this.RegistrationDate.ToString("dd/MM/yyyy HH:mm:ss");
             }
         }
 

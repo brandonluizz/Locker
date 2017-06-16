@@ -9,7 +9,9 @@ namespace Locker.DomainModel.DTO.Reports
     public class UsingOfLockerReport
     {
         public DateTime Date { get; set; }
-        
+
+        public string Hour { get; set; }
+
         public string SectorLocationName { get; set; }
 
         public string SectorName { get; set; }
@@ -32,7 +34,7 @@ namespace Locker.DomainModel.DTO.Reports
         {
             get
             {
-                return this.Date.ToString("dd-MM-yyyy");
+                return this.Date.ToString("dd/MM/yyyy");
             }
         }
     }

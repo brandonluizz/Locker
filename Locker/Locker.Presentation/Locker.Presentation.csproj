@@ -551,11 +551,17 @@
     <Content Include="Scripts\app\View\Customer\Customer.js" />
     <Content Include="Scripts\app\View\Dashboard\Dashboard.js" />
     <Content Include="Scripts\app\View\LockerSetup\LockerSetup.js" />
+    <Content Include="Scripts\app\View\Report\rentalByCustomerReport.js" />
+    <Content Include="Scripts\app\View\Report\usingOfLockerReport.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap-notify.min.js" />
+    <Content Include="Scripts\daterangepicker\daterangepicker.css" />
+    <Content Include="Scripts\daterangepicker\daterangepicker.js" />
+    <Content Include="Scripts\daterangepicker\myDateRangePicker.js" />
     <Content Include="Scripts\DropDown.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\LockerSetup\Index.cshtml" />
     <Content Include="node_modules\izitoast\bower.json" />

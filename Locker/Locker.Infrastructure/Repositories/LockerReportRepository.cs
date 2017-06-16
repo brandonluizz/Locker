@@ -48,7 +48,8 @@ namespace Locker.Infrastructure.Repositories
 
         public IEnumerable<UsingOfLockerReport> GetUseOfLockerReport(int traderId)
         {
-            var query = $@"SELECT CONVERT(date, ca.[InitialRentalDate]) as Date,
+            var query = $@"SELECT CAST(ca.InitialRentalDate as date) as 'Date',
+SUBSTRING(CONVERT(VARCHAR,CAST(ca.InitialRentalDate as time)),1,2) as 'Hour',
                             sl.[SectorLocationName],
                             s.[SectorName],
                             lb.[TotalNumberOfLockers],
@@ -64,7 +65,8 @@ namespace Locker.Infrastructure.Repositories
 		                            INNER JOIN [dbo].[SectorLocation] AS sl
 		                            ON s.[SectorLocationId] = sl.[SectorLocationId]
 		                            WHERE s.TraderId = {traderId}
-	                            group by CONVERT(date, ca.[InitialRentalDate]),
+	                            group by CAST(ca.[InitialRentalDate] as date),
+										SUBSTRING(CONVERT(VARCHAR,CAST(ca.[InitialRentalDate] as time)),1,2),
 			                            lb.[TotalNumberOfLockers],
 			                            sl.[SectorLocationName],
 			                            s.[SectorName]";

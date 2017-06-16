@@ -3,6 +3,50 @@
         $('#new-customer-modal').modal('show');
     });
 
+    window.table = $('#table').DataTable({
+        "ajax": {
+            url: "/Customer/GetAllCustomer/",
+            type: 'GET',
+            cache: false,
+            dataSrc: function (data) {
+                try {
+                    return data;
+                } catch (e) {
+                    return false;
+                }
+            }
+        },
+        "columns": [
+            { "data": "CustomerId" },
+            { "data": "CustomerName" },
+            { "data": "CustomerCpf" },
+            { "data": "FormattedBirthDate" },
+            { "data": "FormattedRegistrationDate" },
+            { "data": "TagUID" },
+            {
+                "orderable": false,
+                "data": null,
+                "defaultContent": "<a class='btn btn-warning'>Editar</a>"
+            },
+        ],
+        "language": {
+            "lengthMenu": "Exibir _MENU_ Registros",
+            "paginate": {
+                "first": "Primeira",
+                "last": "Última",
+                "next": "Próximo",
+                "previous": "Anterior"
+            },
+            "info": "Exibindo _START_ a _END_ de _TOTAL_ Registros",
+            "infoEmpty": "Não houve resultados para sua busca",
+            "emptyTable": "Não houve resultados para sua busca",
+            "search": "Buscar:",
+            "zeroRecords": "Não foi encontrado nenhum resultado",
+            "infoFiltered": "(pesquisado em _MAX_ registros)"
+        }
+    });
+
+
     var newCustomerViewModel = function () {
         var self = this;
 
@@ -16,6 +60,7 @@
         self.AlreadyExistsThisCustomer = ko.observable(false);
         self.Customers = ko.observableArray();
         self.filter = ko.observable();
+        self.SelectedCustomer = ko.observable();
 
         self.filteredList = ko.computed(function () {
             var filter = self.filter(),
@@ -78,11 +123,12 @@
             $('#edit-customer-modal').modal('show');
         }
 
-        self.RemoveCustomer = function (customer) {
+        self.RemoveCustomer = function () {
+            debugger;
             $.ajax({
                 type: 'POST',
                 url: '/Customer/RemoveCustomer/',
-                data: { 'cpf': customer.CustomerCpf },
+                data: { 'cpf': self.EditCustomerCpf() },
                 success: function (data) {
                     if (data) {
                         iziToast.success({
@@ -90,16 +136,18 @@
                             message: 'O cliente foi removido com sucesso!',
                             position: 'topRight'
                         });
-                        GetAllCustomer();
+                        table.ajax.reload();
+                        $('#confirm').modal('hide');
+                        $('#edit-customer-modal').modal('hide');
                     }
                 }
             });
         }
-        
+
         self.EditCustomerSubmit = function (formElement) {
             if (self.EditCustomerFormIsValid()) {
                 $.post('/Customer/EditCustomer/', $(formElement).serialize(), EditWithSuccess, 'json');
-            }            
+            }
         }
 
         self.EditCustomerFormIsValid = function () {
@@ -134,26 +182,30 @@
                     message: 'As informações do cliente foram atualizadas!',
                     position: 'topRight'
                 });
-                GetAllCustomer();
+                table.ajax.reload();
                 self.Error(false);
-            } else
-            {
+            } else {
                 self.Error(true);
             }
         }
 
-        function GetAllCustomer() {
-            $.ajax({
-                type: 'GET',
-                url: '/Customer/GetAllCustomer/',
-                success: function (data) {
-                    if (data) {
-                        var response = $.parseJSON(JSON.stringify(data));
-                        self.Customers(response);
-                        console.log(self.Customers());
-                    }
-                }
-            });
+        table.on('click', 'tr', function () {
+            debugger;
+            var customer = table.row(this).data();
+
+            self.EditCustomerId(customer.CustomerId);
+            self.EditCustomerName(customer.CustomerName);
+            self.EditCustomerCpf(customer.CustomerCpf);
+            self.EditBirthDate(customer.FormattedBirthDate);
+            self.EditTagUID(customer.TagUID);
+            self.SelectedCustomer(customer);
+
+            $('#edit-customer-modal').modal('show');
+        });
+
+        self.OpenConfirmationModal = function () {
+            $('#confirm').modal('show');
+
         }
 
         self.NewCustomerFormIsValid = function () {
@@ -192,7 +244,7 @@
                     message: 'O cliente foi adicionado com sucesso!',
                     position: 'topRight'
                 });
-                GetAllCustomer();
+                table.ajax.reload();
                 self.Error(false);
             } else {
                 self.Error(true);
@@ -204,11 +256,13 @@
             $('.date').mask('99-99-9999');
         }
         self.InitializeComponent = function () {
-            GetAllCustomer();
             SetMaskInput();
         }();
     };
 
+
+
     var newCustomerModal = document.getElementById('new-customer-modal');
     ko.applyBindings(new newCustomerViewModel());
+
 });
