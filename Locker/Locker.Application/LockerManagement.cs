@@ -168,11 +168,11 @@ namespace Locker.Application
         {
             try
             {
-                var blocks = this.unitOfWork.LockerBlockRepository.GetAll(traderId);
+                var blocks = this.unitOfWork.LockerBlockRepository.GetAll(traderId).ToList();
 
-                var lockers = this.unitOfWork.LockerRepository.GetAll(traderId);
+                var lockers = this.unitOfWork.LockerRepository.GetAll(traderId).ToList();
 
-                var blockWithLockers = this.GenerateBlockWithLockers(blocks, lockers);
+                var blockWithLockers = this.GenerateBlockWithLockers(blocks, lockers).ToList();
 
                 return blockWithLockers;
             }

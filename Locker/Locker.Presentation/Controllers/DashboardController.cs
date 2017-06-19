@@ -29,7 +29,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockers()
         {
-            var lockers = this.lockerManagement.GetAllLockers(this.LoggedUser.TraderId);
+            var lockers = this.lockerManagement.GetAllLockers(this.LoggedUser.TraderId).ToList();
 
             return Json(lockers, JsonRequestBehavior.AllowGet);
         }
@@ -37,7 +37,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockerBlocks()
         {
-            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId);
+            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId).ToList();
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
         }
@@ -45,7 +45,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockerByLockerBlocks()
         {
-            var blocksWithLockers = lockerManagement.GetAllLockersByLockerBlocks(this.LoggedUser.TraderId);
+            var blocksWithLockers = lockerManagement.GetAllLockersByLockerBlocks(this.LoggedUser.TraderId).ToList();
 
             return Json(blocksWithLockers, JsonRequestBehavior.AllowGet);
         }

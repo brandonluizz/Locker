@@ -49,7 +49,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllCustomer()
         {
-            var response = this.customerManagement.GetAllCustomer(this.LoggedUser.TraderId);
+            var response = this.customerManagement.GetAllCustomer(this.LoggedUser.TraderId).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }

@@ -33,7 +33,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetSectorLocations()
         {
-            var sectorLocations = this.sectorManagement.GetSectorLocations(this.LoggedUser.TraderId);
+            var sectorLocations = this.sectorManagement.GetSectorLocations(this.LoggedUser.TraderId).ToList();
 
             return Json(sectorLocations, JsonRequestBehavior.AllowGet);
         }
@@ -51,7 +51,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllSectors()
         {
-            var sectors = this.sectorManagement.GetSectors(this.LoggedUser.TraderId);
+            var sectors = this.sectorManagement.GetSectors(this.LoggedUser.TraderId).ToList();
 
             return Json(sectors, JsonRequestBehavior.AllowGet);
         }
@@ -75,7 +75,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockerBlocks()
         {
-            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId);
+            var lockerBlocks = this.lockerManagement.GetAllLockerBlocks(this.LoggedUser.TraderId).ToList();
 
             return Json(lockerBlocks, JsonRequestBehavior.AllowGet);
         }
@@ -84,7 +84,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetAllLockers()
         {
-            var lockers = this.lockerManagement.GetAllLockers(this.LoggedUser.TraderId);
+            var lockers = this.lockerManagement.GetAllLockers(this.LoggedUser.TraderId).ToList();
 
             return Json(lockers, JsonRequestBehavior.AllowGet);
         }

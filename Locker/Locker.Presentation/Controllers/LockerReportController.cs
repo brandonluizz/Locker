@@ -35,7 +35,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetRentalByCustomerReport()
         {
-            var response = this.report.GetRentalByCustomerReport(this.LoggedUser.TraderId);
+            var response = this.report.GetRentalByCustomerReport(this.LoggedUser.TraderId).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
@@ -51,7 +51,7 @@ namespace Locker.Presentation.Controllers
         [HttpGet]
         public JsonResult GetUsingOfLockerReport()
         {
-            var response = this.report.GetUsingLockerReport(this.LoggedUser.TraderId);
+            var response = this.report.GetUsingLockerReport(this.LoggedUser.TraderId).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }

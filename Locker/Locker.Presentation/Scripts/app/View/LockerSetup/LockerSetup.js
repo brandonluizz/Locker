@@ -45,7 +45,7 @@
         function GetSectorLocations() {
             $.ajax({
                 type: 'GET',
-                url: '/LockerSetup/GetSectorLocations/',
+                url: 'LockerSetup/GetSectorLocations/',
                 success: function (data) {
                     if (data) {
                         var response = $.parseJSON(JSON.stringify(data));
