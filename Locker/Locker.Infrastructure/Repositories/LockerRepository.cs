@@ -48,6 +48,13 @@ namespace Locker.Infrastructure.Repositories
             && l.IsActive).OrderBy(l => l.NumberOfPositionLocker).ToList();
         }
 
+        public DomainModel.Locker GetByArduinoId(string arduinoId, int traderId)
+        {
+            if (string.IsNullOrWhiteSpace(arduinoId)) { throw new ArgumentNullException(nameof(arduinoId)); }
+
+            return this.dbSet.Where(l => l.ArduinoId == arduinoId && l.LockerBlock.Sector.TraderId == traderId).FirstOrDefault();
+        }
+
         public DomainModel.Locker GetById(int lockerId)
         {
             return this.dbSet.Where(l => l.LockerId == lockerId).FirstOrDefault();

@@ -12,5 +12,9 @@ namespace Locker.Infrastructure.Repositories.Interface
         void Remove(Customer customer);
 
         IEnumerable<CustomerActivity> GetAll(int traderId);
+
+        CustomerActivity GetByCustomer(Customer customer);
+
+        void Add(CustomerActivity customerActivity);
     }
 }

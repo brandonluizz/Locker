@@ -21,5 +21,7 @@ namespace Locker.Infrastructure.Repositories.Interface
         void AddRange(IList<DomainModel.Locker> lockers);
 
         DomainModel.Locker GetById(int lockerId);
+
+        DomainModel.Locker GetByArduinoId(string arduinoId, int traderId);
     }
 }

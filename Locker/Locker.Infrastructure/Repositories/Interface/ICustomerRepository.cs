@@ -16,5 +16,7 @@ namespace Locker.Infrastructure.Repositories.Interface
         IEnumerable<Customer> GetAllCustomers(int traderId);
 
         void Remove(Customer customer);
+
+        Customer GetByTagUid(string taguid, int traderId);
     }
 }

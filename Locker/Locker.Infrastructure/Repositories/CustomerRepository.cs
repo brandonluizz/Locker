@@ -37,6 +37,13 @@ namespace Locker.Infrastructure.Repositories
             return this.dbSet.FirstOrDefault(c => c.CustomerCpf == cpf);
         }
 
+        public Customer GetByTagUid(string taguid, int traderId)
+        {
+            if (string.IsNullOrWhiteSpace(taguid)) { throw new ArgumentNullException(taguid); }
+
+            return this.dbSet.Where(c => c.TagUID == taguid && c.TraderId == traderId).FirstOrDefault();
+        }
+
         public void Remove(Customer customer)
         {
             if (customer == null) { return; }

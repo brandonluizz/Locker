@@ -7,6 +7,18 @@ namespace Locker.DomainModel
     [Table("CustomerActivity")]
     public class CustomerActivity
     {
+        public CustomerActivity()
+        {
+
+        }
+
+        public CustomerActivity(Customer customer, Locker locker)
+        {
+            this.CustomerId = customer.CustomerId;
+            this.LockerId = locker.LockerId;
+            this.InitialRentalDate = DateTime.Now;
+        }
+
         [Key]
         public int CustomerActivityId { get; set; }
 
