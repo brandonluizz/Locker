@@ -31,6 +31,7 @@
             cache: false,
             dataSrc: function (data) {
                 try {
+                    window.usingOfLockerReportData = data;
                     GenerateChart(data) 
                     return data;
                 } catch (e) {
@@ -64,106 +65,94 @@
         }
     });
 
+    function GetReportDataByDate() {
+        debugger;
+        var dateRange = $('#dateRange').val();
+
+        var dateSplit = dateRange.split(' ');
+
+        var initialDateString = dateSplit[0];
+        var initialDate = moment(initialDateString, "DD/MM/YYYY");
+
+        var finalDateString = dateSplit[2];
+        var finalDate = moment(finalDateString, "DD/MM/YYYY");
+
+        var response = [];
+        for (var i = 0; i < usingOfLockerReportData.length; i++) {
+            var data = usingOfLockerReportData[i];
+
+            var dateFormatted = data.FormattedDate;
+            var lineDate = moment(dateFormatted, "DD/MM/YYYY");
+
+            if (lineDate >= initialDate && lineDate <= finalDate) {
+                response.push(data);
+            }
+        }
+
+        console.log(response);
+        GenerateChart(response);
+    }
+
     function GenerateChart(response) {
         var chart = AmCharts.makeChart("chartdiv", {
             "type": "serial",
             "theme": "light",
+            "handDrawn": true,
+            "handDrawScatter": 3,
             "marginRight": 70,
             "legend": {
-                "equalWidths": false,
                 "useGraphSettings": true,
-                "valueAlign": "left",
-                "valueWidth": 120
+                "markerSize": 12,
+                "valueWidth": 0,
+                "verticalGap": 0
             },
-            "dataProvider": response,
             "valueAxes": [{
-                "id": "hourAxis",
-                "Hour": "hh",
-                "hourUnits": {
-                    "hh": "h ",
-                    "mm": "min"
-                },
                 "axisAlpha": 0,
-                "gridAlpha": 0,
-                "inside": true,
-                "position": "right",
+                "position": "left",
                 "title": "Hora"
             }],
+            "dataProvider": response,
+            "valueAxes": [{
+                "minorGridAlpha": 0.08,
+                "minorGridEnabled": true,
+                "position": "top",
+                "axisAlpha": 0
+            }],
+            "startDuration": 1,
             "graphs": [{
-                "alphaField": "alpha",
-                "balloonText": "[[value]]% de Uso",
-                "dashLengthField": "dashLength",
-                "fillAlphas": 0.7,
-                "legendPeriodValueText": "Porcentagem: ",
-                "legendValueText": "[[value]]%",
-                "title": "Porcentagem de Uso",
+                "balloonText": "<span style='font-size:13px;'>[[title]] dos armários:<b>[[value]]%</b></span>",
+                "title": "Porcentagem de uso",
                 "type": "column",
-                "valueField": "PercentageOfUse",
-                "valueAxis": "PercentageOfUseAxis"
+                "fillAlphas": 0.8,
+
+                "valueField": "PercentageOfUse"
             }, {
-                "balloonText": "Total de Armários:[[value]]",
+                "balloonText": "<span style='font-size:13px;'>[[title]] na seção:<b>[[value]]</b></span>",
                 "bullet": "round",
                 "bulletBorderAlpha": 1,
-                "useLineColorForBulletBorder": true,
                 "bulletColor": "#FFFFFF",
-                "dashLengthField": "dashLength",
-                "labelPosition": "right",
-                "legendValueText": "[[value]]",
-                "title": "Total de Armários",
+                "useLineColorForBulletBorder": true,
                 "fillAlphas": 0,
+                "lineThickness": 2,
+                "lineAlpha": 1,
+                "bulletSize": 7,
+                "title": "Quantidade de Armários",
                 "valueField": "TotalNumberOfLockers"
-            }
-                , {
-                "bullet": "square",
-                "bulletBorderAlpha": 1,
-                "bulletBorderThickness": 1,
-                "dashLengthField": "dashLength",
-                "legendValueText": "[[value]]",
-                "title": "Hora",
-                "fillAlphas": 0,
-                "valueField": "Hour",
-                "valueAxis": "hourAxis"
             }],
-            "chartCursor": {
-                "categoryBalloonDateFormat": "DD",
-                "cursorAlpha": 0.1,
-                "cursorColor": "#000000",
-                "fullWidth": true,
-                "valueBalloonsEnabled": false,
-                "zoomable": false
-            },
-            "dataDateFormat": "DD-MM-YYYY",
-            "categoryField": "FormattedDate",
+            "rotate": true,
+            "categoryField": "Hour",
             "categoryAxis": {
-                "dateFormats": [{
-                    "period": "DD",
-                    "format": "DD"
-                }, {
-                    "period": "WW",
-                    "format": "MMM DD"
-                }, {
-                    "period": "MM",
-                    "format": "MMM"
-                }, {
-                    "period": "YYYY",
-                    "format": "YYYY"
-                }],
-                "parseDates": true,
-                "autoGridCount": false,
-                "axisColor": "#555555",
-                "gridAlpha": 0.1,
-                "gridColor": "#FFFFFF",
-                "gridCount": 50
+                "gridPosition": "start"
             },
             "export": {
                 "enabled": true
             }
+
         });
     }
 
 
     $('#filter').click(function () {
-        var teste = [];
         $.fn.dataTable.ext.search = [];
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {
@@ -181,14 +170,12 @@
                 var lineDate = moment(dateFormatted, "DD/MM/YYYY");
 
                 if (lineDate >= initialDate && lineDate <= finalDate) {
-                    debugger;
-                    teste.push(report.rows().data()[dataIndex]);
                     return true;
                 }
                 return false;
             }
         );
-       // GenerateChart(teste)
+       GetReportDataByDate()
 
         report.draw();
     });

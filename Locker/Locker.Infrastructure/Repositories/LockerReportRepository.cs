@@ -41,7 +41,8 @@ namespace Locker.Infrastructure.Repositories
 			                            ON lb.[SectorId] = s.[SectorId]
 			                            INNER JOIN [dbo].[SectorLocation] AS sl
 			                            ON s.[SectorLocationId] = sl.[SectorLocationId]
-                                        WHERE s.TraderId = {traderId}";
+                                        WHERE s.TraderId = {traderId}
+                                        and ca.[FinalRentalDate] is not null";
             
             return this.context.Database.SqlQuery<RentalCustomerReport>(query).AsEnumerable();
         }
