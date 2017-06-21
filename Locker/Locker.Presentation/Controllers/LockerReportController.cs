@@ -55,5 +55,37 @@ namespace Locker.Presentation.Controllers
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetUsageOfSectorReport(string initialDate, string finalDate)
+        {
+            var response = this.report.GetUsageOfSectorReport(this.LoggedUser.TraderId, initialDate, finalDate);
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public JsonResult GetUsageOfClientReport(string initialDate, string finalDate)
+        {
+            var response = this.report.GetUsageOfClientReport(this.LoggedUser.TraderId, initialDate, finalDate);
+
+            return Json(response);
+        }
+
+        [HttpGet, Route("relatorio/utilizacao-por-hora-e-setor")]
+        public ActionResult UsageOfHourAndSector()
+        {
+            if (this.LoggedUser == null) { return RedirectToAction("Index", "Home"); }
+
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetUsageOfHourAndSectorReport(string initialDate, string finalDate)
+        {
+            var response = this.report.GetUsageOfHourAndSectorReport(this.LoggedUser.TraderId, initialDate, finalDate);
+
+            return Json(response);
+        }
     }
 }

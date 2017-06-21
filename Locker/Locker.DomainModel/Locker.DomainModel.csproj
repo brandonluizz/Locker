@@ -51,6 +51,9 @@
     <Compile Include="DTO\LockerPosition.cs" />
     <Compile Include="DTO\LockerWithCustomerActivity.cs" />
     <Compile Include="DTO\Reports\RentalCustomerReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfClientReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfHourAndSectorReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfSectorReport.cs" />
     <Compile Include="DTO\Reports\UsingOfLockerReport.cs" />
     <Compile Include="DTO\SectorManagementResponse.cs" />
     <Compile Include="DTO\UserAccess.cs" />

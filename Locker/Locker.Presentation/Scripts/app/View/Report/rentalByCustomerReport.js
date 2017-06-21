@@ -6,6 +6,11 @@
             cache: false,
             dataSrc: function (data) {
                 try {
+                    if (data.length > 0) {
+                        GenerateChart();
+                    }
+                    $('#filter').click();
+
                     return data;
                 } catch (e) {
                     return false;
@@ -42,7 +47,6 @@
         $.fn.dataTable.ext.search = [];
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {
-                debugger;
                 var dateRange = $('#dateRange').val();
 
                 var dateSplit = dateRange.split(' ');
@@ -63,7 +67,73 @@
                 return false;
             }
         );
-
+        GenerateChart();
         report.draw();
     });
+
+    function GenerateChart() {
+        var dateRange = $('#dateRange').val();
+
+        var dateSplit = dateRange.split(' ');
+
+        var initialDateString = dateSplit[0] + " " + "00:00:00";
+
+        var finalDateString = dateSplit[2] + " " + "23:59:59";
+        debugger;
+
+        $.ajax({
+            type: 'POST',
+            data: { "initialDate": initialDateString, "finalDate": finalDateString },
+            url: '/LockerReport/GetUsageOfClientReport/',
+            success: function (data) {
+                if (data) {
+                    var response = $.parseJSON(JSON.stringify(data));
+                    if (response.length > 0) {
+                        CreateChart(response);
+                    } else {
+                    }
+                    console.log(response);
+
+                }
+            }
+        });
+    }
+
+    function CreateChart(response) {
+        debugger;
+
+        var chart = AmCharts.makeChart("chartdiv", {
+            "theme": "light",
+            "type": "serial",
+            "startDuration": 2,
+            "dataProvider": response,   
+            "valueAxes": [{
+                "position": "left",
+                "title": "Total de Locação"
+            }],
+            "graphs": [{
+                "balloonText": "[[category]]: <b>[[value]] Locações</b>",
+                "fillAlphas": 1,
+                "lineAlpha": 0.1,
+                "type": "column",
+                "valueField": "TotalOfActivities"
+            }],
+            "depth3D": 20,
+            "angle": 30,
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            }, 
+            "categoryField": "CustomerName",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "labelRotation": 90
+            },
+            "export": {
+                "enabled": false
+            }
+
+        });
+    }
 });

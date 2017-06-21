@@ -1,184 +1,139 @@
 ﻿$(document).ready(function () {
-    var viewModel = function () {
-        var self = this;
+    //window.report = $('#table').DataTable({
+    //    "ajax": {
+    //        url: "/LockerReport/GetUsingOfLockerReport/",
+    //        type: 'GET',
+    //        cache: false,
+    //        dataSrc: function (data) {
+    //            try {
+    //                window.usingOfLockerReportData = data;
+    //                //GenerateChart(data)
+    //                return data;
+    //            } catch (e) {
+    //                return false;
+    //            }
+    //        }
+    //    },
+    //    "columns": [
+    //        { "data": "FormattedDate" },
+    //        { "data": "Hour" },
+    //        { "data": "SectorLocationName" },
+    //        { "data": "SectorName" },
+    //        { "data": "TotalNumberOfLockers" },
+    //        { "data": "TotalLockersOfUsing" },
+    //        { "data": "FormattedPercentageOfUse" }
+    //    ],
+    //    "language": {
+    //        "lengthMenu": "Exibir _MENU_ Registros",
+    //        "paginate": {
+    //            "first": "Primeira",
+    //            "last": "Última",
+    //            "next": "Próximo",
+    //            "previous": "Anterior"
+    //        },
+    //        "info": "Exibindo _START_ a _END_ de _TOTAL_ Registros",
+    //        "infoEmpty": "Não houve resultados para sua busca",
+    //        "emptyTable": "Não houve resultados para sua busca",
+    //        "search": "Buscar:",
+    //        "zeroRecords": "Não foi encontrado nenhum resultado",
+    //        "infoFiltered": "(pesquisado em _MAX_ registros)"
+    //    }
+    //});
 
-        function GetReport() {
-            $.ajax({
-                type: 'GET',
-                url: '/LockerReport/GetUsingOfLockerReport/',
-                success: function (data) {
-                    if (data) {
-                        var response = $.parseJSON(JSON.stringify(data));
-                        //GenerateChart(response);
-                        console.log(data);
-                    }
-                }
-            });
-        }
+    //function GetReportDataByDate() {
+    //    var dateRange = $('#dateRange').val();
 
-        
-        self.InitializeComponent = function () {
-            GetReport();
-        }();
-    }
+    //    var dateSplit = dateRange.split(' ');
 
+    //    var initialDateString = dateSplit[0];
+    //    var initialDate = moment(initialDateString, "DD/MM/YYYY");
 
+    //    var finalDateString = dateSplit[2];
+    //    var finalDate = moment(finalDateString, "DD/MM/YYYY");
 
-    window.report = $('#table').DataTable({
-        "ajax": {
-            url: "/LockerReport/GetUsingOfLockerReport/",
-            type: 'GET',
-            cache: false,
-            dataSrc: function (data) {
-                try {
-                    window.usingOfLockerReportData = data;
-                    GenerateChart(data) 
-                    return data;
-                } catch (e) {
-                    return false;
-                }
-            }
-        },
-        "columns": [
-            { "data": "FormattedDate" },
-            { "data": "Hour" },
-            { "data": "SectorLocationName" },
-            { "data": "SectorName" },
-            { "data": "TotalNumberOfLockers" },
-            { "data": "TotalLockersOfUsing" },
-            { "data": "FormattedPercentageOfUse" }
-        ],
-        "language": {
-            "lengthMenu": "Exibir _MENU_ Registros",
-            "paginate": {
-                "first": "Primeira",
-                "last": "Última",
-                "next": "Próximo",
-                "previous": "Anterior"
-            },
-            "info": "Exibindo _START_ a _END_ de _TOTAL_ Registros",
-            "infoEmpty": "Não houve resultados para sua busca",
-            "emptyTable": "Não houve resultados para sua busca",
-            "search": "Buscar:",
-            "zeroRecords": "Não foi encontrado nenhum resultado",
-            "infoFiltered": "(pesquisado em _MAX_ registros)"
-        }
-    });
+    //    var response = [];
+    //    for (var i = 0; i < usingOfLockerReportData.length; i++) {
+    //        var data = usingOfLockerReportData[i];
 
-    function GetReportDataByDate() {
+    //        var dateFormatted = data.FormattedDate;
+    //        var lineDate = moment(dateFormatted, "DD/MM/YYYY");
+
+    //        if (lineDate >= initialDate && lineDate <= finalDate) {
+    //            response.push(data);
+    //        }
+    //    }
+
+    //    console.log(response);
+    //    GenerateChart(response);
+    //}
+
+    function GetReportUsageSectorByDate() {
         debugger;
         var dateRange = $('#dateRange').val();
 
         var dateSplit = dateRange.split(' ');
 
-        var initialDateString = dateSplit[0];
-        var initialDate = moment(initialDateString, "DD/MM/YYYY");
+        var initialDateString = dateSplit[0] + " " + "00:00:00";
 
-        var finalDateString = dateSplit[2];
-        var finalDate = moment(finalDateString, "DD/MM/YYYY");
+        var finalDateString = dateSplit[2] + " " + "23:59:59";
 
-        var response = [];
-        for (var i = 0; i < usingOfLockerReportData.length; i++) {
-            var data = usingOfLockerReportData[i];
-
-            var dateFormatted = data.FormattedDate;
-            var lineDate = moment(dateFormatted, "DD/MM/YYYY");
-
-            if (lineDate >= initialDate && lineDate <= finalDate) {
-                response.push(data);
-            }
-        }
-
-        console.log(response);
-        GenerateChart(response);
+        GenerateChart(initialDateString, finalDateString);
     }
 
-    function GenerateChart(response) {
-        var chart = AmCharts.makeChart("chartdiv", {
-            "type": "serial",
-            "theme": "light",
-            "handDrawn": true,
-            "handDrawScatter": 3,
-            "marginRight": 70,
-            "legend": {
-                "useGraphSettings": true,
-                "markerSize": 12,
-                "valueWidth": 0,
-                "verticalGap": 0
-            },
-            "valueAxes": [{
-                "axisAlpha": 0,
-                "position": "left",
-                "title": "Hora"
-            }],
-            "dataProvider": response,
-            "valueAxes": [{
-                "minorGridAlpha": 0.08,
-                "minorGridEnabled": true,
-                "position": "top",
-                "axisAlpha": 0
-            }],
-            "startDuration": 1,
-            "graphs": [{
-                "balloonText": "<span style='font-size:13px;'>[[title]] dos armários:<b>[[value]]%</b></span>",
-                "title": "Porcentagem de uso",
-                "type": "column",
-                "fillAlphas": 0.8,
-
-                "valueField": "PercentageOfUse"
-            }, {
-                "balloonText": "<span style='font-size:13px;'>[[title]] na seção:<b>[[value]]</b></span>",
-                "bullet": "round",
-                "bulletBorderAlpha": 1,
-                "bulletColor": "#FFFFFF",
-                "useLineColorForBulletBorder": true,
-                "fillAlphas": 0,
-                "lineThickness": 2,
-                "lineAlpha": 1,
-                "bulletSize": 7,
-                "title": "Quantidade de Armários",
-                "valueField": "TotalNumberOfLockers"
-            }],
-            "rotate": true,
-            "categoryField": "Hour",
-            "categoryAxis": {
-                "gridPosition": "start"
-            },
-            "export": {
-                "enabled": true
+    function GenerateChart(initialDateString, finalDateString) {
+        $.ajax({
+            type: 'POST',
+            data: { "initialDate": initialDateString, "finalDate": finalDateString },
+            url: '/LockerReport/GetUsageOfSectorReport/',
+            success: function (data) {
+                if (data) {
+                    var response = $.parseJSON(JSON.stringify(data));
+                    if (response.length > 0) {
+                        $('#chartdiv').show();
+                        $('#message-chart').hide();
+                        CreateChart(response);
+                    } else {
+                        $('#message-chart').show();
+                        $('#chartdiv').hide();
+                    }
+                    console.log(response);
+                    
+                }
             }
-
         });
     }
 
-
-    $('#filter').click(function () {
-        $.fn.dataTable.ext.search = [];
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                var dateRange = $('#dateRange').val();
-
-                var dateSplit = dateRange.split(' ');
-
-                var initialDateString = dateSplit[0];
-                var initialDate = moment(initialDateString, "DD/MM/YYYY");
-
-                var finalDateString = dateSplit[2];
-                var finalDate = moment(finalDateString, "DD/MM/YYYY");
-
-                var dateFormatted = data[0] || 0;
-                var lineDate = moment(dateFormatted, "DD/MM/YYYY");
-
-                if (lineDate >= initialDate && lineDate <= finalDate) {
-                    return true;
-                }
-                return false;
+    function CreateChart(response) {
+        var chart = AmCharts.makeChart("chartdiv", {
+            "type": "pie",
+            "language":"pt",
+            "theme": "light",
+            "legend": {
+                "position": "right",
+                "marginRight": 100,
+                "autoMargins": false
+            },
+            "dataProvider": response,
+            "valueField": "TotalOfActivitiesBySector",
+            "titleField": "SectorName",
+            "outlineAlpha": 0.4,
+            "depth3D": 15,
+            "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]] Atividades</b> ([[percents]]%)</span>",
+            "angle": 30,      
+            "export": {
+                "enabled": true
             }
-        );
-       GetReportDataByDate()
+        });
+    }
 
-        report.draw();
+     $('#filter').click(function () {       
+        GetReportUsageSectorByDate()
     });
 
-    ko.applyBindings(new viewModel());
+     var Initialize = function () {
+         var initialDate = moment().format("DD/MM/YYYY") + " " + "00:00:00";
+         var finalDate = moment().format("DD/MM/YYYY") + " " + "23:59:59";
+
+         GenerateChart(initialDate, finalDate)
+     }();
 });

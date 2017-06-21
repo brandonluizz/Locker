@@ -41,7 +41,7 @@ namespace Locker.Application
         {
             var cookie = new HttpCookie(this.GetLoggedUserCookieKey())
             {
-                Domain = "locker3478.cloudapp.net",
+                Domain = "localhost",
                 Path = "/",
                 Expires = DateTime.Now.AddMinutes(60),
                 Shareable = true
