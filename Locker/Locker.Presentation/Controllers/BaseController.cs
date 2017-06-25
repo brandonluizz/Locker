@@ -33,7 +33,7 @@ namespace Locker.Presentation.Controllers
                     int minutes = 60;
 
                     userCookie.Expires = DateTime.Now.AddMinutes(minutes);
-                    userCookie.Domain = "locker3478.cloudapp.net";
+                    userCookie.Domain = "localhost";
                     Response.Cookies.Set(userCookie);
 
                     string login = userCookie["Login"];
