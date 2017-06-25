@@ -59,7 +59,7 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult GetUsageOfSectorReport(string initialDate, string finalDate)
         {
-            var response = this.report.GetUsageOfSectorReport(this.LoggedUser.TraderId, initialDate, finalDate);
+            var response = this.report.GetUsageOfSectorReport(this.LoggedUser.TraderId, initialDate, finalDate).ToList();
 
             return Json(response);
         }
@@ -67,7 +67,7 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult GetUsageOfClientReport(string initialDate, string finalDate)
         {
-            var response = this.report.GetUsageOfClientReport(this.LoggedUser.TraderId, initialDate, finalDate);
+            var response = this.report.GetUsageOfClientReport(this.LoggedUser.TraderId, initialDate, finalDate).ToList();
 
             return Json(response);
         }
@@ -83,7 +83,7 @@ namespace Locker.Presentation.Controllers
         [HttpPost]
         public JsonResult GetUsageOfHourAndSectorReport(string initialDate, string finalDate)
         {
-            var response = this.report.GetUsageOfHourAndSectorReport(this.LoggedUser.TraderId, initialDate, finalDate);
+            var response = this.report.GetUsageOfHourAndSectorReport(this.LoggedUser.TraderId, initialDate, finalDate).ToList();
 
             return Json(response);
         }

@@ -29,7 +29,7 @@ namespace Locker.Presentation.Controllers
 		{
 			if (this.UserCookie == null) { return RedirectToAction("Index"); }
 			
-			UserCookie.Domain = "localhost";
+			UserCookie.Domain = "locker3478.cloudapp.net";
 			UserCookie.Path = "/";
 			UserCookie.Expires = DateTime.Now.AddDays(-1);
 			UserCookie.Shareable = true;
