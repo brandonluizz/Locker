@@ -72,6 +72,8 @@ namespace Locker.Presentation.App_Start
             kernel.Bind<ISectorManagement>().To<SectorManagement>();
             kernel.Bind<ILockerManagement>().To<LockerManagement>();
             kernel.Bind<ILockerReport>().To<LockerReport>();
+            kernel.Bind<ICustomerManagement>().To<CustomerManagement>();
+            kernel.Bind<IArduinoCommunicatorManager>().To<ArduinoCommunicatorManager>();
         }        
     }
 }

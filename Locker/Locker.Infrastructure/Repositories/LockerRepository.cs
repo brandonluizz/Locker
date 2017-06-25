@@ -35,17 +35,24 @@ namespace Locker.Infrastructure.Repositories
             }
         }
 
-        public IList<DomainModel.Locker> GetAll(int traderId)
+        public IEnumerable<DomainModel.Locker> GetAll(int traderId)
         {
             return this.dbSet.Where(l => l.LockerBlock.Sector.TraderId == traderId
-            && l.IsActive).ToList();
+            && l.IsActive).AsEnumerable();
         }
 
-        public IList<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId)
+        public ICollection<DomainModel.Locker> GetAllLockersByLockerBlockId(int lockerBlockId, int traderId)
         {
             return this.dbSet.Where(l => l.LockerBlockId == lockerBlockId
             && l.LockerBlock.Sector.TraderId == traderId
             && l.IsActive).OrderBy(l => l.NumberOfPositionLocker).ToList();
+        }
+
+        public DomainModel.Locker GetByArduinoId(string arduinoId, int traderId)
+        {
+            if (string.IsNullOrWhiteSpace(arduinoId)) { throw new ArgumentNullException(nameof(arduinoId)); }
+
+            return this.dbSet.Where(l => l.ArduinoId == arduinoId && l.LockerBlock.Sector.TraderId == traderId).FirstOrDefault();
         }
 
         public DomainModel.Locker GetById(int lockerId)

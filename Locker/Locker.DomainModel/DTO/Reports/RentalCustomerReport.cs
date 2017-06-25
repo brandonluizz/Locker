@@ -30,7 +30,7 @@ namespace Locker.DomainModel.DTO.Reports
         {
             get
             {
-                return this.InitialRentalDate.ToString("dd-MM-yyyy HH:mm:ss");
+                return this.InitialRentalDate.ToString("dd/MM/yyyy HH:mm:ss");
             }
         }
 
@@ -38,7 +38,7 @@ namespace Locker.DomainModel.DTO.Reports
         {
             get
             {
-                return this.FinalRentalDate.ToString("dd-MM-yyyy HH:mm:ss");
+                return this.FinalRentalDate.ToString("dd/MM/yyyy HH:mm:ss");
             }
         }
     }

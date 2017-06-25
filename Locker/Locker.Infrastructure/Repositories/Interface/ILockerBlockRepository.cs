@@ -11,7 +11,7 @@ namespace Locker.Infrastructure.Repositories.Interface
     {
         void Add(LockerBlock lockerBlock);
 
-        IList<LockerBlock> GetAll(int traderId);
+        IEnumerable<LockerBlock> GetAll(int traderId);
 
         LockerBlock GetById(int lockerBlockId, int traderId);
 

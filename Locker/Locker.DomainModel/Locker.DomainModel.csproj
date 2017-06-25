@@ -44,10 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CommunicatorResponse.cs" />
+    <Compile Include="DTO\CustomerManagementResponse.cs" />
     <Compile Include="DTO\LockerBlockWithLockers.cs" />
     <Compile Include="DTO\LockerManagementResponse.cs" />
     <Compile Include="DTO\LockerPosition.cs" />
+    <Compile Include="DTO\LockerWithCustomerActivity.cs" />
     <Compile Include="DTO\Reports\RentalCustomerReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfClientReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfHourAndSectorReport.cs" />
+    <Compile Include="DTO\Reports\UsageOfSectorReport.cs" />
+    <Compile Include="DTO\Reports\UsingOfLockerReport.cs" />
     <Compile Include="DTO\SectorManagementResponse.cs" />
     <Compile Include="DTO\UserAccess.cs" />
     <Compile Include="DTO\UserAccessResponse.cs" />

@@ -9,7 +9,7 @@ namespace Locker.Infrastructure.Repositories.Interface
 {
     public interface ISectorLocationRepository
     {
-        IList<SectorLocation> GetSectorLocations(int traderId);
+        IEnumerable<SectorLocation> GetSectorLocations(int traderId);
 
         void Add(SectorLocation sectorLocation);
     }

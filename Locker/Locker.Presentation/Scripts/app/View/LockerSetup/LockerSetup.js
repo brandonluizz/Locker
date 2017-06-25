@@ -45,7 +45,7 @@
         function GetSectorLocations() {
             $.ajax({
                 type: 'GET',
-                url: '/LockerSetup/GetSectorLocations/',
+                url: 'LockerSetup/GetSectorLocations/',
                 success: function (data) {
                     if (data) {
                         var response = $.parseJSON(JSON.stringify(data));
@@ -90,6 +90,28 @@
         self.Sector = ko.observable('');
         self.Lockers = ko.observableArray();
         self.IsHaveBlankField = ko.observable(false);
+
+        self.filter = ko.observable();
+
+        self.filteredList = ko.computed(function () {
+            var filter = self.filter(),
+                arr = [];
+            if (filter) {
+                ko.utils.arrayForEach(self.Lockers(), function (item) {
+                    if (item.LockerId.toString().toUpperCase() == filter.toString().toUpperCase()
+                        || item.LockerBlock.Sector.SectorName.toString().toUpperCase() == filter.toString().toUpperCase()
+                        || item.LockerBlockId.toString().toUpperCase() == filter.toString().toUpperCase()) {
+                        debugger;
+                        arr.push(item);
+                    }
+
+                });
+            } else {
+                arr = self.Lockers();
+            }
+            return arr;
+
+        });
 
         //LockerData
         self.ArduinoDataErrorMessage = ko.observable(false);

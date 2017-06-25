@@ -10,9 +10,9 @@ namespace Locker.Application.Interfaces
 {
     public interface ISectorManagement
     {
-        IList<SectorLocation> GetSectorLocations(int traderId);
+        IEnumerable<SectorLocation> GetSectorLocations(int traderId);
 
-        IList<Sector> GetSectors(int traderId);
+        IEnumerable<Sector> GetSectors(int traderId);
 
         SectorManagementResponse AddNewSector(Sector sector);
 

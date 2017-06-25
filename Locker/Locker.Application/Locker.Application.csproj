@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoCommunicatorManager.cs" />
+    <Compile Include="CustomerManagement.cs" />
+    <Compile Include="Interfaces\IArduinoCommunicatorManager.cs" />
+    <Compile Include="Interfaces\ICustomerManagement.cs" />
     <Compile Include="Interfaces\ILockerManagement.cs" />
     <Compile Include="Interfaces\ILockerReport.cs" />
     <Compile Include="Interfaces\IUserAccessManagement.cs" />
@@ -49,6 +53,11 @@
     <Compile Include="LockerManagement.cs" />
     <Compile Include="LockerReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SectorManagement.cs" />
     <Compile Include="UserAccessManagement.cs" />
   </ItemGroup>
@@ -61,6 +70,12 @@
       <Project>{11E00A7C-7720-4C2E-9EF5-F0954518B7EC}</Project>
       <Name>Locker.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

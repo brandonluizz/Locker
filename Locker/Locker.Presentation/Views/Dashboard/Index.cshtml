@@ -22,7 +22,12 @@
 </style>
 <h3>Painel de Armários</h3>
 <hr />
-<div data-bind="foreach: Blocks">
+<div class="input-group">
+    <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+    <input type="text" required id="filterD" class="form-control" placeholder="Busque pelo nome do Setor/Bloco Id" data-bind="value:filter,valueUpdate: 'keyup'" />
+</div>
+<hr />
+<div data-bind="foreach: filteredList">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -31,20 +36,27 @@
         </div>
        <div class="panel-body"  data-bind="foreach: Lockers">
            <div class="col-md-4">
-               <div class="panel" data-bind="css: { panelSuccess: IsUsing == false,
-             greenBorder: IsUsing == false,
-             panelDanger: IsUsing,
-             redBorder: IsUsing }">
+               <div class="panel" data-bind="css: { panelSuccess: Locker.IsUsing == false,
+             greenBorder: Locker.IsUsing == false,
+             panelDanger: Locker.IsUsing,
+             redBorder: Locker.IsUsing }">
                    <div class="panel-heading">
                        <h3 class="panel-title">
-                           Armário <span data-bind="text: NumberOfPositionLocker"></span> -
-                           <span class="label label-success" data-bind="visible: IsUsing == false">Disponível</span>
-                           <span class="label label-danger" data-bind="visible: IsUsing">Em Uso</span>
+                           Armário <span data-bind="text: Locker.NumberOfPositionLocker"></span> -
+                           <span class="label label-success" data-bind="visible: Locker.IsUsing == false">Disponível</span>
+                           <span class="label label-danger" data-bind="visible: Locker.IsUsing">Em Uso</span>
                        </h3>
                    </div>
                    <div class="panel-body">
-                       <button class="btn btn-primary" data-bind="visible: IsUsing == false" disabled>Abrir armário</button>
-                       <button class="btn btn-primary" data-bind="visible: IsUsing">Abrir armário</button>
+                       <div data-bind="if: Locker.IsUsing">
+                           <p>Informações</p>
+                           <ul class="list-group">
+                               <li class="list-group-item"><strong>Cliente:</strong> <span data-bind="text: CustomerActivity.Customer.CustomerName"></span></li>
+                               <li class="list-group-item"><strong>Horário de Locação:</strong> <span data-bind="text: CustomerActivity.FormattedInitialRentalDate"></span></li>                               
+                           </ul>
+                       </div>
+                       <button class="btn btn-primary" data-bind="visible: Locker.IsUsing == false" disabled>Abrir armário</button>
+                       <button class="btn btn-primary" data-bind="visible: Locker.IsUsing">Abrir armário</button>
                    </div>
                </div>
            </div>

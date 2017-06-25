@@ -9,6 +9,14 @@ namespace Locker.Application.Interfaces
 {
     public interface ILockerReport
     {
-        IList<RentalCustomerReport> GetRentalByCustomerReport(int traderId);
+        IEnumerable<RentalCustomerReport> GetRentalByCustomerReport(int traderId);
+
+        IEnumerable<UsingOfLockerReport> GetUsingLockerReport(int traderId);
+
+        ICollection<UsageOfSectorReport> GetUsageOfSectorReport(int traderId, string initialDateString, string finalDateString);
+
+        IEnumerable<UsageOfClientReport> GetUsageOfClientReport(int traderId, string initialDateString, string finalDateString);
+
+        IEnumerable<UsageOfHourAndSectorReport> GetUsageOfHourAndSectorReport(int traderId, string initialDateString, string finalDateString);        
     }
 }

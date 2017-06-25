@@ -9,10 +9,10 @@ namespace Locker.DomainModel.DTO
 {
     public class LockerBlockWithLockers
     {
-        public LockerBlockWithLockers(IList<Locker> lockers, int lockerBlockId, string sectorName)
+        public LockerBlockWithLockers(IEnumerable<LockerWithCustomerActivity> lockerWithCustomerActivity, int lockerBlockId, string sectorName)
         {
             this.LockerBlockId = lockerBlockId.ToString();
-            this.Lockers = lockers;
+            this.Lockers = lockerWithCustomerActivity;
             this.SectorName = sectorName;
         }
 
@@ -23,6 +23,6 @@ namespace Locker.DomainModel.DTO
         public string SectorName { get; set; }
 
         [JsonProperty("Locker")]
-        public IList<Locker> Lockers { get; set; }
+        public IEnumerable<LockerWithCustomerActivity> Lockers { get; set; }
     }
 }

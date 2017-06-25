@@ -8,7 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
-    <link rel="stylesheet" href="~/node_modules/izitoast/dist/css/iziToast.css" />
+    <script src="~/Scripts/moment.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/node_modules/izitoast/dist/css/iziToast.css" /> 
+    <script src="~/Scripts/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/Scripts/daterangepicker/daterangepicker.css" />
 </head>
 <body>
     <div class="container">
@@ -28,6 +31,7 @@
                         {
                             <li><a href="/pagina-principal"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Pagina Principal</a></li>
                             <li><a href="/configuracao"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configurações de Armários</a></li>
+                            <li><a href="/meus-clientes"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Meus Clientes</a></li>
                             <li>
                                 <a class="dropdown-toggle" style="cursor:pointer;" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Relatórios
@@ -35,6 +39,8 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="/relatorio/locacao-por-cliente">Relatório de Locação por Cliente</a></li>
+                                    <li><a href="/relatorio/utilizacao-de-armarios">Relatório de Utilização Por Setor</a></li>
+                                    <li><a href="/relatorio/utilizacao-por-hora-e-setor">Relatório de Utilização Por Hora/Setor</a></li>
                                 </ul>
                             </li>
                         }
@@ -55,7 +61,7 @@
     </div>
     <script>
         $(function () {
-
+    
             $(document).ajaxStart(function () {
                 $.blockUI({
                     baseZ: 9999,
